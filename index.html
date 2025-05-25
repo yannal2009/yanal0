@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <title>تسجيل الدخول - فادي للياقة البدنية</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+            direction: rtl;
+            color: #fff;
+            margin: 0;
+            padding: 0;
+        }
+        .login-container {
+            width: 350px;
+            margin: 100px auto;
+            padding: 30px;
+            background-color: #1e1e2f;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.3);
+        }
+
+        .login-container h2 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .login-container input[type="text"],
+        .login-container input[type="password"] {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        .login-container input[type="submit"] {
+            width: 100%;
+            padding: 12px;
+            background-color: #00b894;
+            border: none;
+            border-radius: 5px;
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .login-container input[type="submit"]:hover {
+            background-color: #019875;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 13px;
+            color: #bbb;
+        }
+    </style>
+
+    <script>
+        function validateLogin(event) {
+            event.preventDefault();
+
+            const username = document.getElementById("username").value;
+            const password = document.getElementById("password").value;
+
+            const correctUsername = "yanal";
+            const correctPassword = "2009";
+
+            if (username === correctUsername && password === correctPassword) {
+                window.location.href = "index.html.html"; 
+            } else {
+                alert("اسم المستخدم أو كلمة المرور غير صحيحة!");
+            }
+        }
+    </script>
+</head>
+<body>
+
+    <div class="login-container">
+        <h2>تسجيل الدخول</h2>
+        <form onsubmit="validateLogin(event)">
+            <label for="username">اسم المستخدم</label>
+            <input type="text" id="username" name="username" placeholder="أدخل اسم المستخدم" required>
+
+            <label for="password">كلمة المرور</label>
+            <input type="password" id="password" name="password" placeholder="أدخل كلمة المرور" required>
+
+            <input type="submit" value="دخول">
+        </form>
+        <div class="footer">
+            © 2025 فادي للياقة البدنية
+        </div>
+    </div>
+
+</body>
+</html>

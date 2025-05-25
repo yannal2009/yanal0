@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>اتصل بنا</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: url('https://example.com/contact-background.jpg') no-repeat center center fixed;
+      background-size: cover;
+      color: #0d053b;
+      direction: rtl;
+    }
+    header {
+      background: rgba(13, 19, 33, 0.8);
+      color: #fff;
+      padding: 20px 0;
+      text-align: center;
+    }
+    nav {
+      background: #1d2d50;
+      padding: 10px;
+      text-align: center;
+    }
+    nav a {
+      color: white;
+      margin: 0 15px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    nav a:hover {
+      text-decoration: underline;
+    }
+    .container {
+      padding: 20px;
+      max-width: 1000px;
+      margin: auto;
+      background: rgba(255, 255, 255, 0.8);
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    h1, h2 {
+      color: #1d2d50;
+    }
+    form {
+      display: flex;
+      flex-direction: column;
+    }
+    input, textarea {
+      padding: 10px;
+      margin: 5px 0;
+      width: 100%;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    button {
+      background-color: #f2545b;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #d9434b;
+    }
+    footer {
+      background: #1d2d50;
+      color: white;
+      text-align: center;
+      padding: 10px;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>فادي للياقة البدنية</h1>
+    <p>معلومات وتمارين ونصائح غذائية للوصول إلى هدفك في اللياقة البدنية</p>
+  </header>
+  <nav>
+    <a href="index.html.html">الرئيسية</a>
+    <a href="about.html.html">من هو فادي؟</a>
+    <a href="workout.html.html">برامج التمارين</a>
+    <a href="nutrition.html.html">النصائح الغذائية</a>
+    <a href="contact.html.html">اتصل بنا</a>
+  </nav>
+  <div class="container">
+    <h2>اتصل بنا</h2>
+    <p>إذا كنت بحاجة إلى مساعدة أو لديك استفسار، لا تتردد في التواصل معنا.</p>
+    <form action="#">
+      <label for="name">الاسم:</label>
+      <input type="text" id="name" name="name" required>
+      
+      <label for="email">البريد الإلكتروني:</label>
+      <input type="email" id="email" name="email" required>
+      
+      <label for="message">الرسالة:</label>
+      <textarea id="message" name="message" rows="5" required></textarea>
+      
+      <button type="submit">إرسال</button>
+    </form>
+  </div>
+  <footer>
+    &copy; 2025 فادي للياقة البدنية - جميع الحقوق محفوظة
+  </footer>
+</body>
+</html>
