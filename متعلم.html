@@ -1,0 +1,2747 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>متعلم - موقع تعليم البرمجة</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #4e54c8;
+            --secondary-color: #8f94fb;
+            --accent-color: #ff6b6b;
+            --html-color: #e34c26;
+            --css-color: #264de4;
+            --js-color: #F0DB4F;
+            --python-color: #3776ab;
+            --dark-color: #333;
+            --light-color: #f8f9fa;
+            --success-color: #28a745;
+            --warning-color: #ffc107;
+            --bg-color: #f8f9fa;
+            --text-color: #333;
+            --card-bg: white;
+            --header-bg: rgba(255, 255, 255, 0.95);
+            --footer-bg: #333;
+            --footer-text: white;
+            --code-bg: #2d2d2d;
+            --editor-bg: #1e1e1e;
+            --transition: all 0.3s ease;
+            --border-radius: 12px;
+            --box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            --box-shadow-dark: 0 8px 20px rgba(0, 0, 0, 0.3);
+        }
+        .dark-mode {
+            --bg-color: #1a1a1a;
+            --text-color: #f0f0f0;
+            --card-bg: #2d2d2d;
+            --header-bg: rgba(45, 45, 45, 0.95);
+            --footer-bg: #111;
+            --footer-text: #ddd;
+            --code-bg: #1a1a1a;
+            --editor-bg: #0d0d0d;
+            --box-shadow: var(--box-shadow-dark);
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            transition: var(--transition);
+        }
+        body {
+            background: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            min-height: 100vh;
+            transition: background-color 0.5s ease, color 0.5s ease;
+        }
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        header {
+            background-color: var(--header-bg);
+            padding: 15px 0;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+        }
+        .logo i {
+            margin-right: 10px;
+            font-size: 28px;
+        }
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        .nav-links li {
+            margin-left: 25px;
+        }
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-color);
+            font-weight: 500;
+            transition: var(--transition);
+            padding: 8px 15px;
+            border-radius: var(--border-radius);
+            position: relative;
+            overflow: hidden;
+        }
+        .nav-links a::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--primary-color);
+            z-index: -1;
+            border-radius: var(--border-radius);
+            transform: scaleX(0);
+            transform-origin: right;
+            transition: transform 0.3s ease;
+        }
+        .nav-links a:hover {
+            color: white;
+        }
+        .nav-links a:hover::before {
+            transform: scaleX(1);
+            transform-origin: left;
+        }
+        .nav-links a.active {
+            color: white;
+            background: var(--primary-color);
+            box-shadow: 0 4px 12px rgba(78, 84, 200, 0.3);
+        }
+        .btn {
+            display: inline-block;
+            background: var(--primary-color);
+            color: white;
+            padding: 12px 25px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(78, 84, 200, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(rgba(255, 255, 255, 0.2), transparent);
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+        }
+        .btn:hover {
+            background: var(--secondary-color);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        }
+        .btn:hover::before {
+            transform: translateY(0);
+        }
+        .btn-html {
+            background: var(--html-color);
+            box-shadow: 0 4px 10px rgba(227, 76, 38, 0.3);
+        }
+        .btn-html:hover {
+            background: #f06529;
+        }
+        .btn-css {
+            background: var(--css-color);
+            box-shadow: 0 4px 10px rgba(38, 77, 228, 0.3);
+        }
+        .btn-css:hover {
+            background: #2965f1;
+        }
+        .btn-js {
+            background: var(--js-color);
+            color: #333;
+            box-shadow: 0 4px 10px rgba(240, 219, 79, 0.3);
+        }
+        .btn-js:hover {
+            background: #f7df1e;
+        }
+        .btn-python {
+            background: var(--python-color);
+            box-shadow: 0 4px 10px rgba(55, 118, 171, 0.3);
+        }
+        .btn-python:hover {
+            background: #306998;
+        }
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--primary-color);
+            color: var(--primary-color);
+            box-shadow: none;
+        }
+        .btn-outline:hover {
+            background: var(--primary-color);
+            color: white;
+            box-shadow: 0 4px 10px rgba(78, 84, 200, 0.3);
+        }
+        .hero {
+            padding: 100px 0;
+            text-align: center;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            z-index: -1;
+        }
+        .hero h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            animation: fadeIn 1s ease;
+        }
+        .hero p {
+            font-size: 20px;
+            max-width: 800px;
+            margin: 0 auto 30px;
+            animation: fadeIn 1.5s ease;
+        }
+        .features {
+            padding: 80px 0;
+            background-color: var(--bg-color);
+        }
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+            color: var(--primary-color);
+            font-size: 32px;
+            position: relative;
+            padding-bottom: 15px;
+        }
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: var(--primary-color);
+            border-radius: 2px;
+        }
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        .feature-card {
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            padding: 30px;
+            box-shadow: var(--box-shadow);
+            transition: var(--transition);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 100%;
+            background: var(--primary-color);
+            transform: scaleY(0);
+            transition: transform 0.3s ease;
+        }
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+        .feature-card:hover::before {
+            transform: scaleY(1);
+        }
+        .feature-icon {
+            font-size: 40px;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            transition: var(--transition);
+        }
+        .feature-card:hover .feature-icon {
+            transform: scale(1.2);
+        }
+        .feature-card h3 {
+            margin-bottom: 15px;
+            color: var(--text-color);
+        }
+        .feature-card p {
+            color: var(--text-color);
+        }
+        .interactive-section {
+            padding: 80px 0;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            position: relative;
+        }
+        .interactive-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,0 L100,100 Z" fill="rgba(255,255,255,0.05)"/></svg>');
+            background-size: cover;
+        }
+        .code-editor {
+            background: var(--code-bg);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            margin: 30px 0;
+            box-shadow: var(--box-shadow);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .editor-header {
+            background: var(--editor-bg);
+            padding: 10px 15px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .editor-dots {
+            display: flex;
+        }
+        .editor-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-right: 6px;
+        }
+        .dot-red { background: #ff5f56; }
+        .dot-yellow { background: #ffbd2e; }
+        .dot-green { background: #27c93f; }
+        .editor-body {
+            padding: 20px;
+        }
+        .code-input {
+            width: 100%;
+            min-height: 200px;
+            background: transparent;
+            border: none;
+            color: #f8f8f2;
+            font-family: 'Courier New', monospace;
+            font-size: 16px;
+            resize: none;
+            outline: none;
+            line-height: 1.5;
+        }
+        .output {
+            background: var(--editor-bg);
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+            min-height: 100px;
+            color: #f8f8f2;
+            font-family: 'Courier New', monospace;
+            white-space: pre-wrap;
+            box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .run-btn {
+            margin-top: 15px;
+        }
+        .pages-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            margin: 40px 0;
+        }
+        .page-card {
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            width: 300px;
+            box-shadow: var(--box-shadow);
+            transition: var(--transition);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+        .page-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+        .page-header {
+            padding: 20px;
+            color: white;
+            text-align: center;
+        }
+        .html-header { background: var(--html-color); }
+        .css-header { background: var(--css-color); }
+        .js-header { background: var(--js-color); color: #333; }
+        .python-header { background: var(--python-color); }
+        .page-body {
+            padding: 20px;
+            text-align: center;
+        }
+        .page-body p {
+            margin-bottom: 20px;
+            color: var(--text-color);
+        }
+        footer {
+            background: var(--footer-bg);
+            color: var(--footer-text);
+            padding: 40px 0;
+            text-align: center;
+        }
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+        .footer-links li {
+            margin: 0 15px;
+        }
+        .footer-links a {
+            color: #ddd;
+            text-decoration: none;
+            transition: color 0.3s;
+            position: relative;
+        }
+        .footer-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary-color);
+            transition: width 0.3s ease;
+        }
+        .footer-links a:hover {
+            color: white;
+        }
+        .footer-links a:hover::after {
+            width: 100%;
+        }
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+        }
+        .social-icons a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            margin: 0 10px;
+            transition: var(--transition);
+        }
+        .social-icons a:hover {
+            background: var(--primary-color);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        /* هون اضافات جديده تعلمتها*/
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+        }
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: var(--primary-color);
+            margin: 3px 0;
+            transition: 0.3s;
+        }
+        .copy-btn {
+            background: #555;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+            margin-left: 10px;
+            transition: var(--transition);
+        }
+        .copy-btn:hover {
+            background: #777;
+        }
+        .code-container {
+            position: relative;
+        }
+        .copy-notification {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--success-color);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            z-index: 1000;
+            display: none;
+            box-shadow: var(--box-shadow);
+        }
+        .examples-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+        .example-card {
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            padding: 20px;
+            box-shadow: var(--box-shadow);
+            cursor: pointer;
+            transition: var(--transition);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+        .example-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+        .example-title {
+            color: var(--primary-color);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+        .example-title i {
+            margin-left: 10px;
+        }
+        .example-desc {
+            color: #666;
+            margin-bottom: 15px;
+            font-size: 14px;
+        }
+        .example-code {
+            background: var(--code-bg);
+            padding: 15px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            overflow-x: auto;
+            direction: ltr;
+            color: #f8f8f2;
+            box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .content-section {
+            margin: 40px 0;
+        }
+        .content-section h3 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #eee;
+        }
+        .content-section p {
+            margin-bottom: 15px;
+            line-height: 1.8;
+            color: var(--text-color);
+        }
+        .content-section ul {
+            margin: 15px 0;
+            padding-right: 20px;
+        }
+        .content-section li {
+            margin-bottom: 10px;
+            color: var(--text-color);
+        }
+        /* تصميم جديد لصفحة الاتصال */
+        .contact-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        .contact-info {
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            padding: 30px;
+            box-shadow: var(--box-shadow);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+        .contact-info h3 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .contact-detail {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .contact-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--primary-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 20px;
+            margin-left: 15px;
+            box-shadow: 0 4px 10px rgba(78, 84, 200, 0.3);
+        }
+        .contact-text h4 {
+            margin-bottom: 5px;
+            color: var(--text-color);
+        }
+        .contact-text p {
+            color: var(--text-color);
+        }
+        .contact-form {
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            padding: 30px;
+            box-shadow: var(--box-shadow);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+        .contact-form h3 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--text-color);
+        }
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: var(--transition);
+            background: var(--bg-color);
+            color: var(--text-color);
+        }
+        .form-control:focus {
+            border-color: var(--primary-color);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(78, 84, 200, 0.2);
+        }
+        textarea.form-control {
+            min-height: 150px;
+            resize: vertical;
+        }
+        .map-container {
+            margin-top: 40px;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--box-shadow);
+            background: var(--card-bg);
+            padding: 20px;
+            text-align: center;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+        .map-placeholder {
+            padding: 40px;
+            background: var(--bg-color);
+            border-radius: 8px;
+        }
+        .map-placeholder i {
+            font-size: 48px;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+        /* تصميم صفحة تسجيل الدخول */
+        .auth-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 80vh;
+            padding: 40px 0;
+        }
+        .auth-card {
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            width: 100%;
+            max-width: 450px;
+            padding: 40px;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+        .auth-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .auth-header h2 {
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+        .auth-header p {
+            color: #666;
+        }
+        .auth-tabs {
+            display: flex;
+            margin-bottom: 25px;
+            border-bottom: 1px solid #eee;
+        }
+        .auth-tab {
+            flex: 1;
+            text-align: center;
+            padding: 12px;
+            cursor: pointer;
+            color: #666;
+            font-weight: 500;
+            transition: var(--transition);
+            border-bottom: 3px solid transparent;
+        }
+        .auth-tab.active {
+            color: var(--primary-color);
+            border-bottom: 3px solid var(--primary-color);
+        }
+        .input-group {
+            position: relative;
+            margin-bottom: 20px;
+        }
+        .input-group input {
+            width: 100%;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: var(--transition);
+            background: var(--bg-color);
+            color: var(--text-color);
+        }
+        .input-group input:focus {
+            border-color: var(--primary-color);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(78, 84, 200, 0.2);
+        }
+        .input-group label {
+            position: absolute;
+            top: 50%;
+            right: 15px;
+            transform: translateY(-50%);
+            background: var(--card-bg);
+            padding: 0 5px;
+            color: #666;
+            transition: var(--transition);
+            pointer-events: none;
+        }
+        .input-group input:focus + label,
+        .input-group input:not(:placeholder-shown) + label {
+            top: 0;
+            font-size: 14px;
+            color: var(--primary-color);
+        }
+        .input-icon {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #666;
+        }
+        .remember-forgot {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .remember {
+            display: flex;
+            align-items: center;
+        }
+        .remember input {
+            margin-left: 8px;
+        }
+        .forgot-link {
+            color: var(--primary-color);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        .forgot-link:hover {
+            color: var(--secondary-color);
+            text-decoration: underline;
+        }
+        .auth-btn {
+            width: 100%;
+            padding: 15px;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background 0.3s;
+            box-shadow: 0 4px 10px rgba(78, 84, 200, 0.3);
+        }
+        .auth-btn:hover {
+            background: var(--secondary-color);
+        }
+        .auth-divider {
+            text-align: center;
+            margin: 25px 0;
+            position: relative;
+        }
+        .auth-divider::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            right: 0;
+            left: 0;
+            height: 1px;
+            background: #eee;
+        }
+        .auth-divider span {
+            background: var(--card-bg);
+            padding: 0 15px;
+            color: #666;
+            position: relative;
+        }
+        .social-auth {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+        .social-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: #f5f5f5;
+            color: #666;
+            font-size: 18px;
+            transition: var(--transition);
+        }
+        .social-btn:hover {
+            background: var(--primary-color);
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        .auth-footer {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .auth-footer a {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .auth-footer a:hover {
+            text-decoration: underline;
+        }
+        /* زر الوضع الليلي */
+        .theme-toggle {
+            background: transparent;
+            border: none;
+            color: var(--text-color);
+            font-size: 24px;
+            cursor: pointer;
+            margin-left: 15px;
+            transition: transform 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(78, 84, 200, 0.1);
+        }
+        .theme-toggle:hover {
+            transform: rotate(30deg);
+            background: rgba(78, 84, 200, 0.2);
+        }
+        /* تأثيرات للوضع الليلي */
+        .dark-mode .hero::before {
+            background: linear-gradient(135deg, #2c3e50, #4a5568);
+        }
+        .dark-mode .interactive-section {
+            background: linear-gradient(135deg, #4a5568, #2d3748);
+        }
+        .dark-mode .example-card,
+        .dark-mode .contact-info,
+        .dark-mode .contact-form,
+        .dark-mode .auth-card,
+        .dark-mode .map-container {
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        }
+        .dark-mode .form-control,
+        .dark-mode .input-group input {
+            background: #222;
+            border-color: #444;
+            color: #fff;
+        }
+        .dark-mode .content-section h3 {
+            border-bottom-color: #444;
+        }
+        .dark-mode .example-desc {
+            color: #aaa;
+        }
+        /* تأثيرات متقدمة */
+        .floating {
+            animation: floating 3s ease-in-out infinite;
+        }
+        @keyframes floating {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+        .pulse {
+            animation: pulse 2s ease-in-out infinite;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        .gradient-text {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* === صفحة نبذة عني === */
+        .about-me-section {
+            padding: 60px 0;
+            text-align: center;
+        }
+        .profile-image {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid var(--primary-color);
+            margin: 0 auto 30px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease;
+        }
+        .profile-image:hover {
+            transform: scale(1.05);
+        }
+        .about-content {
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.8;
+            font-size: 18px;
+        }
+        .about-content p {
+            margin-bottom: 20px;
+            color: var(--text-color);
+        }
+        /* ====================== */
+
+        @media (max-width: 768px) {
+            .nav-links {
+                position: fixed;
+                top: 80px;
+                right: -100%;
+                background: var(--card-bg);
+                width: 80%;
+                height: calc(100vh - 80px);
+                flex-direction: column;
+                align-items: center;
+                justify-content: flex-start;
+                padding-top: 40px;
+                transition: 0.5s;
+                box-shadow: -5px 0 15px rgba(0,0,0,0.1);
+                z-index: 99;
+            }
+            .nav-links.active {
+                right: 0;
+            }
+            .nav-links li {
+                margin: 15px 0;
+            }
+            .hamburger {
+                display: flex;
+            }
+            .hamburger.active span:nth-child(1) {
+                transform: rotate(-45deg) translate(-5px, 6px);
+            }
+            .hamburger.active span:nth-child(2) {
+                opacity: 0;
+            }
+            .hamburger.active span:nth-child(3) {
+                transform: rotate(45deg) translate(-5px, -6px);
+            }
+            .hero h1 {
+                font-size: 36px;
+            }
+            .hero p {
+                font-size: 18px;
+            }
+            .pages-container {
+                flex-direction: column;
+                align-items: center;
+            }
+            .examples-container {
+                grid-template-columns: 1fr;
+            }
+            .contact-container {
+                grid-template-columns: 1fr;
+            }
+            .auth-card {
+                padding: 25px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">
+                    <i class="fas fa-code"></i>
+                    <span>متعلم</span>
+                </div>
+                <ul class="nav-links">
+                    <li><a href="#" class="active" onclick="showPage('home'); return false;">الرئيسية</a></li>
+                    <li><a href="#" onclick="showPage('about-me'); return false;">نبذة عني</a></li> <!-- رابط جديد -->
+                    <li><a href="#" onclick="showPage('html-page'); return false;">HTML</a></li>
+                    <li><a href="#" onclick="showPage('css-page'); return false;">CSS</a></li>
+                    <li><a href="#" onclick="showPage('js-page'); return false;">JavaScript</a></li>
+                    <li><a href="#" onclick="showPage('python-page'); return false;">Python</a></li>
+                    <li><a href="#" onclick="showPage('contact'); return false;">اتصل بنا</a></li>
+                    <li><a href="#" class="btn-outline" onclick="toggleFontSize(); return false;" style="padding: 5px 10px; font-size: 14px;" title="تكبير/تصغير النص">+/-</a></li>
+                </ul>
+                <div style="display: flex; align-items: center;">
+                    <button class="theme-toggle" id="theme-toggle">
+                        <i class="fas fa-moon" id="theme-icon"></i>
+                    </button>
+                    <a href="#" class="btn" onclick="showPage('auth-page'); return false;">تسجيل الدخول</a>
+                </div>
+                <div class="hamburger" onclick="toggleMenu()">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </nav>
+        </div>
+    </header>
+    <main id="content">
+        <!-- الصفحة الرئيسية -->
+        <section id="home" class="page">
+            <!-- ... محتوى الصفحة الرئيسية كما هو ... -->
+            <div class="hero">
+                <div class="container">
+                    <h1>تعلم البرمجة بطريقة تفاعلية</h1>
+                    <p>ابدأ رحلتك في تعليم HTML, CSS, JavaScript و Python من الصفر حتى الاحتراف مع مشاريع عملية وتحديات تفاعلية</p>
+                    <a href="#" class="btn pulse" onclick="showPage('html-page'); return false;">ابدأ التعلم الآن <i class="fas fa-arrow-left"></i></a>
+                </div>
+            </div>
+            <section class="features">
+                <div class="container">
+                    <h2 class="section-title">ماذا نقدم لك؟</h2>
+                    <div class="features-grid">
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <i class="fas fa-laptop-code"></i>
+                            </div>
+                            <h3>دروس تفاعلية</h3>
+                            <p>تعلم من خلال التطبيق العملي مع محرر أكواد مدمج يمكنك التجربة فيه مباشرة</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <i class="fas fa-project-diagram"></i>
+                            </div>
+                            <h3>مشاريع عملية</h3>
+                            <p>طبق ما تعلمته في مشاريع حقيقية لبناء portfolio يعرض مهاراتك</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <h3>مجتمع داعم</h3>
+                            <p>انضم إلى آلاف المتعلمين واحصل على المساعدة عندما تواجهك أي صعوبات</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section class="interactive-section">
+                <div class="container">
+                    <h2 class="section-title">جرب بنفسك</h2>
+                    <p>استخدم المحرر أدناه لتجربة كتابة أكواد JavaScript مباشرة:</p>
+                    <div class="code-editor">
+                        <div class="editor-header">
+                            <div class="editor-dots">
+                                <div class="editor-dot dot-red"></div>
+                                <div class="editor-dot dot-yellow"></div>
+                                <div class="editor-dot dot-green"></div>
+                                <span style="margin-left: 10px; color: #aaa;">script.js</span>
+                            </div>
+                            <button class="copy-btn" onclick="copyCode('code-input')">نسخ الكود</button>
+                        </div>
+                        <div class="editor-body">
+                            <textarea class="code-input" id="code-input" placeholder="اكتب الكود JavaScript هنا...">
+// جرب هذا المثال البسيط
+function welcome(name) {
+    return "مرحباً " + name + "! بك في موقع متعلم";
+}
+// جرب استدعاء الدالة مع اسمك
+const message = welcome("المبرمج");
+console.log(message);
+// مثال على الحلقات
+for (let i = 1; i <= 5; i++) {
+    console.log("رقم: " + i);
+}
+// مثال على الكائنات
+const person = {
+    name: "أحمد",
+    age: 25,
+    city: "الرياض"
+};
+console.log("الاسم: " + person.name);
+console.log("العمر: " + person.age);</textarea>
+                        </div>
+                    </div>
+                    <button class="btn run-btn" onclick="runCode()">تشغيل الكود <i class="fas fa-play"></i></button>
+                    <div class="output" id="output">
+                        // النتيجة ستظهر هنا بعد تشغيل الكود
+                    </div>
+                </div>
+            </section>
+            <section class="features">
+                <div class="container">
+                    <h2 class="section-title">صفحات التعلم</h2>
+                    <div class="pages-container">
+                        <div class="page-card floating" style="animation-delay: 0s;">
+                            <div class="page-header html-header">
+                                <h3><i class="fab fa-html5"></i> HTML</h3>
+                            </div>
+                            <div class="page-body">
+                                <p>لغة هيكلة المحتوى وتأسيس صفحات الويب</p>
+                                <a href="#" class="btn btn-html" onclick="showPage('html-page'); return false;">تعلم HTML</a>
+                            </div>
+                        </div>
+                        <div class="page-card floating" style="animation-delay: 0.2s;">
+                            <div class="page-header css-header">
+                                <h3><i class="fab fa-css3-alt"></i> CSS</h3>
+                            </div>
+                            <div class="page-body">
+                                <p>لغة تنسيق وتصميم صفحات الويب</p>
+                                <a href="#" class="btn btn-css" onclick="showPage('css-page'); return false;">تعلم CSS</a>
+                            </div>
+                        </div>
+                        <div class="page-card floating" style="animation-delay: 0.4s;">
+                            <div class="page-header js-header">
+                                <h3><i class="fab fa-js"></i> JavaScript</h3>
+                            </div>
+                            <div class="page-body">
+                                <p>لغة برمجة لجعل مواقعك تفاعلية</p>
+                                <a href="#" class="btn btn-js" onclick="showPage('js-page'); return false;">تعلم JavaScript</a>
+                            </div>
+                        </div>
+                        <div class="page-card floating" style="animation-delay: 0.6s;">
+                            <div class="page-header python-header">
+                                <h3><i class="fab fa-python"></i> Python</h3>
+                            </div>
+                            <div class="page-body">
+                                <p>لغة برمجة متعددة الاستخدامات وسهلة التعلم</p>
+                                <a href="#" class="btn btn-python" onclick="showPage('python-page'); return false;">تعلم Python</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </section>
+
+        <!صفحه نبذةعني>
+        <section id="about-me" class="page" style="display: none;">
+            <div class="hero" style="background: linear-gradient(to right, #2f0652eb, #13082a);">
+                <div class="container">
+                    <h1><i class="fas fa-user"></i> نبذة عني</h1>
+                    <p>تعرف على من يقف وراء هذا الموقع التعليمي</p>
+                </div>
+            </div>
+            <section class="about-me-section">
+                <div class="container">
+                    <img src="صورتي.jpg" alt="الصورة الشخصية" class="profile-image" onerror="this.src='https://via.placeholder.com/180?text=صورة+شخصية'">
+                    <div class="about-content">
+                        <p>مرحباً! أنا <strong>ينال خصاونة</strong>، مطور ويب ومُعلّم برمجة شغوف بنشر المعرفة التقنية بين الشباب العربي.</p>
+                        <p>أنشأت موقع "متعلم" لتقديم محتوى تعليمي عملي وسهل الفهم للمبتدئين في عالم البرمجة، مع التركيز على التطبيق المباشر والمشاريع الواقعية.</p>
+                        <p>هدفي هو تمكين كل شخص يملك شغف التعلم من اكتساب مهارات البرمجة الحديثة وبناء مستقبل مهني ناجح في مجال التكنولوجيا.</p>
+                        <p>لا تتردد في التواصل معي عبر وسائل التواصل الموجودة في صفحة "اتصل بنا"!</p>
+                    </div>
+                    <div style="text-align: center; margin-top: 30px;">
+                        <button class="btn" onclick="showPage('home')">العودة للرئيسية</button>
+                    </div>
+                </div>
+            </section>
+        </section>
+
+
+        <!-- صفحة HTML -->
+        <section id="html-page" class="page" style="display: none;">
+            <!-- ... محتوى HTML كما هو ... -->
+            <div class="hero" style="background: linear-gradient(to right, #e34c26, #f06529);">
+                <div class="container">
+                    <h1>تعلم HTML</h1>
+                    <p>لغة ترميز النص الفائق - الهيكل الأساسي لكل صفحة ويب</p>
+                </div>
+            </div>
+            <section class="features">
+                <div class="container">
+                    <h2 class="section-title">أساسيات HTML</h2>
+                    <div class="content-section">
+                        <h3>ما هي HTML؟</h3>
+                        <p>
+                            <strong>HTML</strong> (HyperText Markup Language) ليست لغة برمجة، بل هي لغة <strong>ترميز</strong> تُستخدم لتحديد الهيكل والمحتوى الأساسي لصفحات الويب. تحدد مكان العناوين، الفقرات، الروابط، والجداول.
+                        </p>
+                        <h3>لماذا نتعلم HTML؟</h3>
+                        <p>
+                            HTML هي حجر الأساس لتطوير الويب. أي موقع أو تطبيق ويب يعتمد عليها. إتقانها ضروري لأي مطور ويب، حتى عند استخدام أطر عمل حديثة.
+                        </p>
+                        <h3>الهيكل الأساسي لصفحة HTML</h3>
+                        <p>تتبع جميع صفحات HTML هيكلًا قياسيًا يتكون من العناصر التالية:</p>
+                        <ul>
+                            <li><code><!DOCTYPE html></code>: يحدد إصدار HTML المستخدم.</li>
+                            <li><code><html></code>: العنصر الجذر الذي يحتوي على جميع محتوى الصفحة.</li>
+                            <li><code><head></code>: معلومات وصفية عن الصفحة (عنوان، روابط CSS/JS).</li>
+                            <li><code><body></code>: يحتوي على كل المحتوى المرئي للمستخدم.</li>
+                        </ul>
+                    </div>
+                    <div class="features-grid">
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <i class="fas fa-code"></i>
+                            </div>
+                            <h3>العناصر والوسوم</h3>
+                            <p>HTML تُبنى من <strong>وسوم</strong> (Tags) تُحيط بالمحتوى لتعريفه، مثل <code><p></code> للفقرة و<code><h1></code> للعنوان الرئيسي.</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <i class="fas fa-link"></i>
+                            </div>
+                            <h3>الروابط</h3>
+                            <p>الوسم <code><a></code> يُستخدم لإنشاء الروابط التشعبية، مما يجعل الموقع مترابطًا.</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <i class="fas fa-table"></i>
+                            </div>
+                            <h3>القوائم والجداول</h3>
+                            <p>تُستخدم القوائم (<code><ul></code>, <code><ol></code>) والجداول (<code><table></code>) لتنظيم المعلومات وعرضها بشكل مرتب ومنهجي.</p>
+                        </div>
+                    </div>
+                    <h2 class="section-title">أمثلة عملية في HTML</h2>
+                    <div class="examples-container">
+                        <div class="example-card" onclick="loadExample('html', 1)">
+                            <div class="example-header">
+                                <h3 class="example-title">هيكل صفحة كامل</h3>
+                                <p class="example-desc">المثال الأدنى لصفحة HTML صالحة.</p>
+                            </div>
+                            <div class="example-content">
+                                <pre class="example-code"><code><!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>صفحتي الأولى</title>
+</head>
+<body>
+    <h1>مرحباً بالعالم!</h1>
+    <p>هذه هي أول صفحة ويب لي باستخدام HTML5.</p>
+</body>
+</html></code></pre>
+                            </div>
+                        </div>
+                        <div class="example-card" onclick="loadExample('html', 2)">
+                            <div class="example-header">
+                                <h3 class="example-title">روابط</h3>
+                                <p class="example-desc">كيفية إنشاء روابط نصية بدون صور.</p>
+                            </div>
+                            <div class="example-content">
+                                <pre class="example-code"><code><!-- رابط خارجي -->
+<a href="https://www.mozilla.org">زيارة موقع Mozilla</a>
+<!-- رابط داخلي -->
+<a href="#section2">انتقل للقسم 2</a></code></pre>
+                            </div>
+                        </div>
+                        <div class="example-card" onclick="loadExample('html', 3)">
+                            <div class="example-header">
+                                <h3 class="example-title">جدول معلومات</h3>
+                                <p class="example-desc">إنشاء جدول لعرض بيانات منظمة.</p>
+                            </div>
+                            <div class="example-content">
+                                <pre class="example-code"><code><table border="1">
+    <caption>جدول درجات الطلاب</caption>
+    <thead>
+        <tr>
+            <th>اسم الطالب</th>
+            <th>الرياضيات</th>
+            <th>العلوم</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>أحمد</td>
+            <td>95</td>
+            <td>88</td>
+        </tr>
+        <tr>
+            <td>فاطمة</td>
+            <td>92</td>
+            <td>94</td>
+        </tr>
+    </tbody>
+</table></code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="code-editor">
+                        <div class="editor-header">
+                            <div class="editor-dots">
+                                <div class="editor-dot dot-red"></div>
+                                <div class="editor-dot dot-yellow"></div>
+                                <div class="editor-dot dot-green"></div>
+                                <span style="margin-left: 10px; color: #aaa;">index.html</span>
+                            </div>
+                            <button class="copy-btn" onclick="copyCode('html-code-input')">نسخ الكود</button>
+                        </div>
+                        <div class="editor-body">
+                            <textarea class="code-input" id="html-code-input" placeholder="اكتب كود HTML هنا...">
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>صفحتي التعليمية</title>
+</head>
+<body>
+    <header>
+        <h1>موقعي التعليمي</h1>
+        <nav>
+            <a href="#home">الرئيسية</a> |
+            <a href="#about">نبذة عنا</a> |
+            <a href="#contact">اتصل بنا</a>
+        </nav>
+    </header>
+    <main>
+        <section id="home">
+            <h2>مرحباً بك!</h2>
+            <p>هذا الموقع مخصص لتعليم أساسيات البرمجة.</p>
+        </section>
+        <section id="about">
+            <h2>من نحن؟</h2>
+            <p>نحن فريق من المطورين المتحمسين لتعليم البرمجة.</p>
+            <ul>
+                <li>تعلم HTML لبناء الهيكل</li>
+                <li>تعلم CSS للتنسيق والتصميم</li>
+                <li>تعلم JavaScript للتفاعل</li>
+            </ul>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2025 متعلم. جميع الحقوق محفوظة.</p>
+    </footer>
+</body>
+</html></textarea>
+                        </div>
+                    </div>
+                    <div style="text-align: center; margin-top: 20px;">
+                        <button class="btn btn-home" onclick="showPage('home')">العودة للرئيسية</button>
+                        <button class="btn btn-css" onclick="showPage('css-page')">التالية: CSS</button>
+                    </div>
+                </div>
+            </section>
+        </section>
+
+        <!-- باقي الصفحات كما هي (CSS, JS, Python, Contact, Auth) -->
+
+        <!-- صفحة CSS -->
+        <section id="css-page" class="page" style="display: none;">
+            <!-- ... محتوى CSS كما هو ... -->
+            <div class="hero" style="background: linear-gradient(to right, #264de4, #2965f1);">
+                <div class="container">
+                    <h1><i class="fab fa-css3-alt"></i> تعلم CSS</h1>
+                    <p>Cascading Style Sheets - لغة تنسيق وتصميم صفحات الويب</p>
+                </div>
+            </div>
+            <section class="features">
+                <div class="container">
+                    <h2 class="section-title">أساسيات CSS</h2>
+                    <div class="content-section">
+                        <h3>ما هي CSS؟</h3>
+                        <p>
+                            <strong>CSS</strong> (Cascading Style Sheets) هي لغة تُستخدم لوصف <strong>المظهر والتنسيق</strong> لمستندات HTML. بينما يوفر HTML الهيكل، فإن CSS يتحكم في الألوان، الخطوط، المسافات، التخطيط، وحتى الرسوم المتحركة.
+                        </p>
+                        <h3>لماذا نتعلم CSS؟</h3>
+                        <p>
+                            بدون CSS، ستكون جميع صفحات الويب مجرد نصوص سوداء على خلفية بيضاء. CSS هي ما يحول هذه الصفحات إلى تصاميم جذابة وحديثة وسهلة الاستخدام.
+                        </p>
+                        <h3>كيف تعمل CSS؟</h3>
+                        <p>تعمل CSS من خلال تحديد الأنماط لعناصر HTML. تتكون قاعدة CSS من ثلاثة أجزاء رئيسية:</p>
+                        <ul>
+                            <li><strong>المحدد (Selector)</strong>: يحدد العنصر أو العناصر التي سيتم تطبيق النمط عليها (مثل <code>h1</code> أو <code>.class-name</code>).</li>
+                            <li><strong>الخاصية (Property)</strong>: سمة التنسيق التي تريد تغييرها (مثل <code>color</code>، <code>font-size</code>، <code>margin</code>).</li>
+                            <li><strong>القيمة (Value)</strong>: القيمة المحددة للخاصية (مثل <code>red</code>، <code>16px</code>، <code>20px</code>).</li>
+                        </ul>
+                    </div>
+                    <div class="features-grid">
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <i class="fas fa-paint-brush"></i>
+                            </div>
+                            <h3>التنسيق الأساسي</h3>
+                            <p>التحكم في الألوان، الخطوط، والمسافات الداخلية والخارجية للعناصر.</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <i class="fas fa-box"></i>
+                            </div>
+                            <h3>نموذج الصندوق (Box Model)</h3>
+                            <p>فهم <code>margin</code>، <code>border</code>، <code>padding</code>، و<code>content</code> هو أساس تصميم أي عنصر.</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <i class="fas fa-th"></i>
+                            </div>
+                            <h3>التخطيط الحديث</h3>
+                            <p>استخدام <code>Flexbox</code> و<code>CSS Grid</code> لإنشاء تخطيطات معقدة ومرنة بسهولة.</p>
+                        </div>
+                    </div>
+                    <h2 class="section-title">أمثلة عملية في CSS</h2>
+                    <div class="examples-container">
+                        <div class="example-card" onclick="loadExample('css', 1)">
+                            <div class="example-header">
+                                <h3 class="example-title"><i class="fas fa-text-height"></i> تنسيق النصوص</h3>
+                                <p class="example-desc">تغيير مظهر النصوص باستخدام CSS.</p>
+                            </div>
+                            <div class="example-content">
+                                <pre class="example-code"><code>/* تطبيق على جميع عناصر الصفحة */
+body {
+    font-family: 'Arial', sans-serif;
+    line-height: 1.6;
+    color: #333;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 20px;
+}
+/* تنسيق العناوين الرئيسية */
+h1 {
+    color: #0066cc;
+    text-align: center;
+    font-size: 2.5em;
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+}
+/* تنسيق الفقرات */
+p {
+    font-size: 1.1em;
+    margin-bottom: 1em;
+    text-align: justify;
+}</code></pre>
+                            </div>
+                        </div>
+                        <div class="example-card" onclick="loadExample('css', 2)">
+                            <div class="example-header">
+                                <h3 class="example-title"><i class="fas fa-box"></i> نموذج الصندوق</h3>
+                                <p class="example-desc">التعامل مع الهوامش والحشوات والحدود.</p>
+                            </div>
+                            <div class="example-content">
+                                <pre class="example-code"><code>/* إنشاء بطاقة محتوى */
+.card {
+    width: 300px;
+    padding: 20px; /* المسافة الداخلية */
+    margin: 20px auto; /* المسافة الخارجية */
+    border: 2px solid #ddd; /* الإطار */
+    border-radius: 12px; /* زوايا دائرية */
+    background-color: #ffffff; /* لون الخلفية */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* ظل */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+/* تأثير عند تمرير الماوس */
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+/* تنسيق الزر داخل البطاقة */
+.card .button {
+    display: inline-block;
+    padding: 12px 24px;
+    background-color: #4CAF50;
+    color: white;
+    text-decoration: none;
+    border-radius: 6px;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+.card .button:hover {
+    background-color: #45a049;
+}</code></pre>
+                            </div>
+                        </div>
+                        <div class="example-card" onclick="loadExample('css', 3)">
+                            <div class="example-header">
+                                <h3 class="example-title"><i class="fas fa-th"></i> تخطيط Flexbox</h3>
+                                <p class="example-desc">إنشاء تخطيطات مرنة باستخدام Flexbox.</p>
+                            </div>
+                            <div class="example-content">
+                                <pre class="example-code"><code>/* تخطيط مرن للأقسام */
+.container {
+    display: flex;
+    justify-content: space-between; /* توزيع العناصر أفقياً */
+    align-items: stretch; /* تمديد العناصر رأسياً */
+    flex-wrap: wrap; /* السماح بالالتفاف إذا لم يكن هناك مساحة */
+    gap: 20px; /* المسافة بين العناصر */
+    padding: 20px;
+}
+/* تصميم كل عنصر داخل التخطيط */
+.item {
+    flex: 1 1 300px; /* يمكن التمدد والانكماش، الحد الأدنى للعرض 300px */
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    text-align: center;
+}
+/* استجابة للشاشات الصغيرة */
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column; /* تغيير الاتجاه إلى عمودي */
+        align-items: center; /* توسيط العناصر */
+    }
+    .item {
+        width: 100%; /* اجعل العناصر بعرض كامل */
+        max-width: 400px;
+    }
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="code-editor">
+                        <div class="editor-header">
+                            <div class="editor-dots">
+                                <div class="editor-dot dot-red"></div>
+                                <div class="editor-dot dot-yellow"></div>
+                                <div class="editor-dot dot-green"></div>
+                                <span style="margin-left: 10px; color: #aaa;">style.css</span>
+                            </div>
+                            <button class="copy-btn" onclick="copyCode('css-code-input')">نسخ الكود</button>
+                        </div>
+                        <div class="editor-body">
+                            <textarea class="code-input" id="css-code-input" placeholder="اكتب كود CSS هنا...">
+/* التنسيق العام */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    background-color: #f0f2f5;
+    color: #333;
+}
+/* تنسيق الهيدر */
+.header {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+    padding: 30px;
+    text-align: center;
+    border-radius: 12px;
+    margin-bottom: 30px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+.header h1 {
+    font-size: 2.5em;
+    margin: 0;
+}
+/* تنسيق البطاقات */
+.card {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    padding: 25px;
+    margin: 20px 0;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+/* تنسيق الأزرار */
+.button {
+    background: #4e54c8;
+    color: white;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 30px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 4px 8px rgba(78, 84, 200, 0.3);
+}
+.button:hover {
+    background: #8f94fb;
+    transform: translateY(-3px);
+}
+/* تنسيق الفوتر */
+.footer {
+    background: #333;
+    color: white;
+    text-align: center;
+    padding: 20px;
+    margin-top: 40px;
+    border-radius: 12px;
+    box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.1);
+}</textarea>
+                        </div>
+                    </div>
+                    <div style="text-align: center; margin-top: 20px;">
+                        <button class="btn btn-html" onclick="showPage('html-page')">السابقة: HTML</button>
+                        <button class="btn btn-js" onclick="showPage('js-page')">التالية: JavaScript</button>
+                    </div>
+                </div>
+            </section>
+        </section>
+
+        <!-- صفحة JavaScript -->
+        <section id="js-page" class="page" style="display: none;">
+            <div class="hero" style="background: linear-gradient(to right, #F0DB4F, #f7df1e); color: #333;">
+                <div class="container">
+                    <h1><i class="fab fa-js"></i> تعلم JavaScript</h1>
+                    <p>لغة برمجة لجعل مواقعك تفاعلية</p>
+                </div>
+            </div>
+            <section class="features">
+                <div class="container">
+                    <h2 class="section-title">أساسيات JavaScript</h2>
+                    <div class="content-section">
+                        <h3>ما هي JavaScript؟</h3>
+                        <p>
+                            <strong>JavaScript</strong> هي لغة برمجة عالية المستوى تُستخدم بشكل أساسي لجعل صفحات الويب <strong>تفاعلية</strong>. وهي واحدة من التقنيات الأساسية الثلاث (HTML, CSS, JS) لبناء الويب الحديث.
+                        </p>
+                        <h3>لماذا نتعلم JavaScript؟</h3>
+                        <p>
+                            JavaScript هي اللغة الأكثر استخدامًا في العالم لتطوير الويب. مع JavaScript يمكنك:
+                        </p>
+                        <ul>
+                            <li>إضافة تفاعل إلى صفحات الويب (مثل النقرات، التمرير، إدخال البيانات).</li>
+                            <li>إنشاء تطبيقات ويب ديناميكية لا تحتاج لإعادة تحميل الصفحة.</li>
+                            <li>التحقق من صحة بيانات النماذج قبل إرسالها إلى الخادم.</li>
+                            <li>إنشاء رسوم متحركة وتأثيرات بصرية.</li>
+                            <li>التواصل مع واجهات برمجة التطبيقات (APIs) لجلب البيانات من مصادر خارجية.</li>
+                        </ul>
+                        <h3>إمكانيات JavaScript</h3>
+                        <p>تطورت JavaScript بشكل كبير وأصبحت تستخدم الآن في مجالات متعددة:</p>
+                        <ul>
+                            <li><strong>الواجهة الأمامية (Frontend)</strong>: باستخدام أطر عمل مثل React, Vue, Angular.</li>
+                            <li><strong>الخلفية (Backend)</strong>: باستخدام Node.js لبناء خوادم وتطبيقات كاملة.</li>
+                            <li><strong>تطبيقات الهاتف</strong>: باستخدام React Native أو Ionic.</li>
+                            <li><strong>تطبيقات سطح المكتب</strong>: باستخدام Electron.</li>
+                        </ul>
+                    </div>
+                    <div class="features-grid">
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <i class="fas fa-cogs"></i>
+                            </div>
+                            <h3>المفاهيم الأساسية</h3>
+                            <p>المتغيرات، الدوال، الشروط، الحلقات، والمصفوفات هي حجر الأساس في أي برنامج.</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <i class="fas fa-window-restore"></i>
+                            </div>
+                            <h3>نموذج كائن المستند (DOM)</h3>
+                            <p>القدرة على الوصول إلى عناصر HTML وتعديلها أو حذفها أو إضافة عناصر جديدة ديناميكيًا.</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <i class="fas fa-sync-alt"></i>
+                            </div>
+                            <h3>معالجة الأحداث</h3>
+                            <p>الاستجابة لأفعال المستخدم مثل النقر، الكتابة، التمرير، وغيرها.</p>
+                        </div>
+                    </div>
+                    <h2 class="section-title">أمثلة عملية في JavaScript</h2>
+                    <div class="examples-container">
+                        <div class="example-card" onclick="loadExample('js', 1)">
+                            <h3 class="example-title"><i class="fas fa-calculator"></i> المتغيرات والعمليات</h3>
+                            <p class="example-desc">تعريف المتغيرات وإجراء العمليات الحسابية والمنطقية.</p>
+                            <pre class="example-code">// تعريف المتغيرات بأنواع مختلفة
+let name = "أحمد"; // نص
+const age = 25; // رقم (ثابت)
+let isStudent = true; // قيمة منطقية
+// العمليات الحسابية
+let x = 10;
+let y = 5;
+console.log("الجمع:", x + y); // 15
+console.log("الطرح:", x - y); // 5
+console.log("الضرب:", x * y); // 50
+console.log("القسمة:", x / y); // 2
+// العمليات المنطقية
+console.log("هل أكبر من؟", x > y); // true
+console.log("هل يساوي؟", x === 10); // true
+// دمج النصوص
+let greeting = "مرحباً " + name + "، عمرك " + age + " سنة.";
+console.log(greeting);</pre>
+                        </div>
+                        <div class="example-card" onclick="loadExample('js', 2)">
+                            <h3 class="example-title"><i class="fas fa-sync-alt"></i> الدوال والشروط</h3>
+                            <p class="example-desc">إنشاء دوال واستخدام الشروط للتحكم في سير البرنامج.</p>
+                            <pre class="example-code">// دالة لحساب متوسط درجات الطالب
+function calculateAverage(grades) {
+    let sum = 0;
+    for (let i = 0; i < grades.length; i++) {
+        sum += grades[i];
+    }
+    return sum / grades.length;
+}
+// دالة لتحديد حالة الطالب بناءً على المعدل
+function getStudentStatus(average) {
+    if (average >= 90) {
+        return "ممتاز";
+    } else if (average >= 80) {
+        return "جيد جداً";
+    } else if (average >= 70) {
+        return "جيد";
+    } else {
+        return "ضعيف";
+    }
+}
+// استخدام الدوال
+const studentGrades = [85, 92, 78, 96];
+const avg = calculateAverage(studentGrades);
+const status = getStudentStatus(avg);
+console.log("المعدل: " + avg.toFixed(2));
+console.log("الحالة: " + status);</pre>
+                        </div>
+                        <div class="example-card" onclick="loadExample('js', 3)">
+                            <h3 class="example-title"><i class="fas fa-project-diagram"></i> التفاعل مع DOM</h3>
+                            <p class="example-desc">تعديل محتوى الصفحة واستجابة لأحداث المستخدم.</p>
+                            <pre class="example-code">// تغيير نص عنصر عند النقر على زر
+document.getElementById("changeTextBtn").addEventListener("click", function() {
+    document.getElementById("targetText").textContent = "تم تغيير النص!";
+    document.getElementById("targetText").style.color = "blue";
+});
+// إضافة عنصر جديد إلى القائمة
+document.getElementById("addToListBtn").addEventListener("click", function() {
+    const newItem = document.createElement("li");
+    newItem.textContent = "عنصر جديد " + (document.querySelectorAll("#myList li").length + 1);
+    document.getElementById("myList").appendChild(newItem);
+});
+// تغيير لون الخلفية عند تمرير الماوس فوق عنصر
+document.getElementById("hoverBox").addEventListener("mouseenter", function() {
+    this.style.backgroundColor = "#ffcc00";
+});
+document.getElementById("hoverBox").addEventListener("mouseleave", function() {
+    this.style.backgroundColor = "#f0f0f0";
+});</pre>
+                        </div>
+                    </div>
+                    <div class="code-editor" style="margin-top: 40px;">
+                        <div class="editor-header">
+                            <div class="editor-dots">
+                                <div class="editor-dot dot-red"></div>
+                                <div class="editor-dot dot-yellow"></div>
+                                <div class="editor-dot dot-green"></div>
+                                <span style="margin-left: 10px; color: #aaa;">script.js</span>
+                            </div>
+                            <button class="copy-btn" onclick="copyCode('js-code-input')">نسخ الكود</button>
+                        </div>
+                        <div class="editor-body">
+                            <textarea class="code-input" id="js-code-input" placeholder="اكتب كود JavaScript هنا...">
+// دالة الترحيب
+function greetUser(name) {
+    return "مرحباً " + name + "! كيف حالك؟";
+}
+// مثال على الأحداث
+document.getElementById("myButton").addEventListener("click", function() {
+    alert("تم النقر على الزر!");
+});
+// مثال على التلاعب بـ DOM
+function changeText() {
+    const element = document.getElementById("demo");
+    element.innerHTML = "تم تغيير النص!";
+    element.style.color = "red";
+    element.style.fontWeight = "bold";
+}
+// مثال على المصفوفات
+const fruits = ["تفاح", "موز", "برتقال"];
+fruits.forEach(function(fruit, index) {
+    console.log((index + 1) + ". " + fruit);
+});
+// مثال على الكائنات
+const person = {
+    name: "أحمد",
+    age: 25,
+    city: "الرياض",
+    introduce: function() {
+        return "أنا " + this.name + "، عمري " + this.age + " سنة، وأسكن في " + this.city;
+    }
+};
+console.log(person.introduce());
+// مثال على Classes في ES6
+class Animal {
+    constructor(name, sound) {
+        this.name = name;
+        this.sound = sound;
+    }
+    makeSound() {
+        console.log(this.name + " يصدر صوت: " + this.sound);
+    }
+}
+const cat = new Animal("قطة", "مواء");
+cat.makeSound();</textarea>
+                        </div>
+                    </div>
+                    <div style="text-align: center; margin-top: 20px;">
+                        <button class="btn btn-css" onclick="showPage('css-page')">السابقة: CSS</button>
+                        <button class="btn btn-python" onclick="showPage('python-page')">التالية: Python</button>
+                    </div>
+                </div>
+            </section>
+        </section>
+
+        <!-- صفحة Python -->
+        <section id="python-page" class="page" style="display: none;">
+            <div class="hero" style="background: linear-gradient(to right, #3776ab, #306998);">
+                <div class="container">
+                    <h1><i class="fab fa-python"></i> تعلم Python</h1>
+                    <p>لغة برمجة متعددة الاستخدامات وسهلة التعلم</p>
+                </div>
+            </div>
+            <section class="features">
+                <div class="container">
+                    <h2 class="section-title">أساسيات Python</h2>
+                    <div class="content-section">
+                        <h3>ما هي Python؟</h3>
+                        <p>
+                            <strong>Python</strong> هي لغة برمجة عالية المستوى، <strong>سهلة التعلم</strong> و<strong>قوية</strong>. تتميز ببساطة تركيبها وسهولة قراءتها، مما يجعلها مثالية للمبتدئين والمحترفين على حد سواء. تُستخدم Python في مجالات متنوعة مثل تطوير الويب، تحليل البيانات، الذكاء الاصطناعي، الأتمتة، وغيرها الكثير.
+                        </p>
+                        <h3>لماذا نتعلم Python؟</h3>
+                        <p>
+                            Python هي واحدة من أكثر لغات البرمجة شعبية في العالم للأسباب التالية:
+                        </p>
+                        <ul>
+                            <li><strong>سهلة التعلم</strong>: تركيبها يشبه اللغة الإنجليزية، مما يقلل من منحنى التعلم.</li>
+                            <li><strong>متعددة الاستخدامات</strong>: تناسب تطوير الويب، تحليل البيانات، الذكاء الاصطناعي، الألعاب، والأتمتة.</li>
+                            <li><strong>مجتمع ضخم</strong>: ملايين المطورين حول العالم يقدمون الدعم والمكتبات المجانية.</li>
+                            <li><strong>مطلوبة في سوق العمل</strong>: من أكثر المهارات المطلوبة في مجالات التكنولوجيا.</li>
+                        </ul>
+                        <h3>مجالات استخدام Python</h3>
+                        <p>تستخدم Python في العديد من المجالات المهمة:</p>
+                        <ul>
+                            <li><strong>تطوير الويب</strong>: باستخدام أطر عمل مثل Django و Flask.</li>
+                            <li><strong>علم البيانات وتحليلها</strong>: باستخدام مكتبات مثل Pandas و NumPy و Matplotlib.</li>
+                            <li><strong>التعلم الآلي والذكاء الاصطناعي</strong>: باستخدام TensorFlow و PyTorch و Scikit-learn.</li>
+                            <li><strong>الأتمتة وبرمجة النصوص</strong>: لأتمتة المهام اليومية المتكررة.</li>
+                            <li><strong>تطوير تطبيقات سطح المكتب</strong>: باستخدام Tkinter أو PyQt.</li>
+                        </ul>
+                    </div>
+                    <div class="features-grid">
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <i class="fas fa-cogs"></i>
+                            </div>
+                            <h3>المفاهيم الأساسية</h3>
+                            <p>المتغيرات، أنواع البيانات، الشروط، الحلقات، والدوال هي أساس البرمجة في Python.</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <i class="fas fa-box-open"></i>
+                            </div>
+                            <h3>هياكل البيانات</h3>
+                            <p>القوائم، القواميس، المجموعات، والصفوف لتخزين وإدارة البيانات بكفاءة.</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <i class="fas fa-project-diagram"></i>
+                            </div>
+                            <h3>البرمجة الكائنية</h3>
+                            <p>استخدام الكلاسات والكائنات لتنظيم الكود وجعله قابلاً لإعادة الاستخدام.</p>
+                        </div>
+                    </div>
+                    <h2 class="section-title">أمثلة عملية في Python</h2>
+                    <div class="examples-container">
+                        <div class="example-card" onclick="loadExample('python', 1)">
+                            <h3 class="example-title"><i class="fas fa-calculator"></i> المتغيرات والعمليات</h3>
+                            <p class="example-desc">تعريف المتغيرات وإجراء العمليات الأساسية.</p>
+                            <pre class="example-code"># تعريف متغيرات بأسماء معبرة
+student_name = "فاطمة"
+student_age = 22
+is_enrolled = True
+# العمليات الحسابية
+math_score = 85
+science_score = 92
+average_score = (math_score + science_score) / 2
+print(f"اسم الطالب: {student_name}")
+print(f"العمر: {student_age}")
+print(f"المعدل: {average_score:.2f}")
+# العمليات على النصوص
+greeting = "مرحباً " + student_name + "!"
+print(greeting.upper())  # تحويل النص إلى أحرف كبيرة
+print(f"عدد أحرف الاسم: {len(student_name)}")</pre>
+                        </div>
+                        <div class="example-card" onclick="loadExample('python', 2)">
+                            <h3 class="example-title"><i class="fas fa-sync-alt"></i> الشروط والحلقات</h3>
+                            <p class="example-desc">استخدام الشروط والحلقات للتحكم في سير البرنامج.</p>
+                            <pre class="example-code"># التحقق من حالة الطالب باستخدام if-elif-else
+if average_score >= 90:
+    grade = "A"
+    status = "ممتاز"
+elif average_score >= 80:
+    grade = "B"
+    status = "جيد جداً"
+elif average_score >= 70:
+    grade = "C"
+    status = "جيد"
+else:
+    grade = "F"
+    status = "ضعيف"
+print(f"الدرجة: {grade} - {status}")
+# استخدام الحلقة for للمرور على قائمة
+fruits = ["تفاح", "موز", "برتقال", "فراولة"]
+print("قائمة الفواكه:")
+for index, fruit in enumerate(fruits, start=1):
+    print(f"{index}. {fruit}")
+# استخدام الحلقة while
+count = 5
+print("العد التنازلي:")
+while count > 0:
+    print(count)
+    count -= 1  # تقليل العداد بمقدار 1
+print("انطلق!")</pre>
+                        </div>
+                        <div class="example-card" onclick="loadExample('python', 3)">
+                            <h3 class="example-title"><i class="fas fa-box"></i> القوائم والقواميس</h3>
+                            <p class="example-desc">استخدام هياكل البيانات لتخزين المعلومات المعقدة.</p>
+                            <pre class="example-code"># العمل مع القوائم (Lists)
+shopping_list = ["خبز", "حليب", "بيض"]
+shopping_list.append("زبادي")  # إضافة عنصر
+shopping_list.remove("حليب")   # حذف عنصر
+print("قائمة التسوق:", shopping_list)
+print("عدد العناصر:", len(shopping_list))
+# العمل مع القواميس (Dictionaries)
+student = {
+    "name": "محمد",
+    "age": 20,
+    "major": "علوم الحاسوب",
+    "grades": {
+        "math": 88,
+        "physics": 91,
+        "chemistry": 85
+    }
+}
+print(f"اسم الطالب: {student['name']}")
+print(f"تخصصه: {student['major']}")
+print(f"درجة الرياضيات: {student['grades']['math']}")
+# حساب المعدل من القاموس
+grades_list = student['grades'].values()
+average = sum(grades_list) / len(grades_list)
+print(f"المعدل العام: {average:.2f}")</pre>
+                        </div>
+                    </div>
+                    <div class="code-editor" style="margin-top: 40px;">
+                        <div class="editor-header">
+                            <div class="editor-dots">
+                                <div class="editor-dot dot-red"></div>
+                                <div class="editor-dot dot-yellow"></div>
+                                <div class="editor-dot dot-green"></div>
+                                <span style="margin-left: 10px; color: #aaa;">script.py</span>
+                            </div>
+                            <button class="copy-btn" onclick="copyCode('python-code-input')">نسخ الكود</button>
+                        </div>
+                        <div class="editor-body">
+                            <textarea class="code-input" id="python-code-input" placeholder="اكتب كود Python هنا...">
+# دالة الترحيب
+def greet(name):
+    return f"مرحباً {name}! بك في عالم بايثون"
+# استدعاء الدالة
+message = greet("المبرمج")
+print(message)
+# مثال على الشروط
+age = 20
+if age >= 18:
+    print("أنت بالغ")
+else:
+    print("أنت قاصر")
+# مثال على الحلقات
+print("الأعداد من 1 إلى 5:")
+for i in range(1, 6):
+    print(i)
+# مثال على القوائم
+fruits = ["تفاح", "موز", "برتقال"]
+print("قائمة الفواكه:")
+for fruit in fruits:
+    print(f"- {fruit}")
+# مثال على القواميس
+person = {
+    "name": "أحمد",
+    "age": 25,
+    "city": "الرياض"
+}
+print(f"الاسم: {person['name']}")
+print(f"العمر: {person['age']}")
+print(f"المدينة: {person['city']}")
+# مثال على الدوال المتقدمة
+def calculate_area(length, width):
+    """دالة لحساب المساحة"""
+    return length * width
+area = calculate_area(5, 3)
+print(f"مساحة المستطيل: {area}")
+# مثال على استيراد المكتبات
+import math
+print(f"الجذر التربيعي لـ 16 هو: {math.sqrt(16)}")
+print(f"قيمة باي: {math.pi}")</textarea>
+                        </div>
+                    </div>
+                    <div style="text-align: center; margin-top: 20px;">
+                        <button class="btn btn-js" onclick="showPage('js-page')">السابقة: JavaScript</button>
+                        <button class="btn" onclick="showPage('home')">العودة للرئيسية</button>
+                    </div>
+                </div>
+            </section>
+        </section>
+
+        <!-- صفحة اتصل بنا -->
+        <section id="contact" class="page" style="display: none;">
+            <div class="hero" style="background: linear-gradient(to right, #000, #222);">
+                <div class="container">
+                    <h1><i class="fas fa-envelope"></i> اتصل بنا</h1>
+                    <p>نحن هنا لمساعدتك في رحلة تعلم البرمجة</p>
+                </div>
+            </div>
+            <section class="features">
+                <div class="container">
+                    <h2 class="section-title">تواصل معنا</h2>
+                    <div class="contact-container">
+                        <div class="contact-info">
+                            <h3>معلومات التواصل</h3>
+                            <div class="contact-detail">
+                                <div class="contact-icon">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                </div>
+                                <div class="contact-text">
+                                    <h4>العنوان</h4>
+                                    <p>الأردن - إربد</p>
+                                </div>
+                            </div>
+                            <div class="contact-detail">
+                                <div class="contact-icon">
+                                    <i class="fas fa-phone"></i>
+                                </div>
+                                <div class="contact-text">
+                                    <h4>الهاتف</h4>
+                                    <p>0779514573</p>
+                                </div>
+                            </div>
+                            <div class="contact-detail">
+                                <div class="contact-icon">
+                                    <i class="fas fa-envelope"></i>
+                                </div>
+                                <div class="contact-text">
+                                    <h4>البريد الإلكتروني</h4>
+                                    <p>khasawnehyanal405@gmail.com</p>
+                                </div>
+                            </div>
+                            <div class="contact-detail">
+                                <div class="contact-icon">
+                                    <i class="fas fa-clock"></i>
+                                </div>
+                                <div class="contact-text">
+                                    <h4>ساعات العمل</h4>
+                                    <p>الأحد - الخميس: 2 صباحا -12 منتصف الليل</p>
+                                </div>
+                            </div>
+                            <div class="social-icons">
+                                <a href="https://www.facebook.com/share/1B8qtXesfx/"><i class="fab fa-facebook-f"></i></a>
+                                <a href="https://ig.me/j/AbaGIL8E5ZDzuUSQ/"><i class="fab fa-instagram"></i></a>
+                            </div>
+                        </div>
+                        <div class="contact-form">
+                            <h3>أرسل لنا رسالة</h3>
+                            <form id="contact-form">
+                                <div class="form-group">
+                                    <label for="name">الاسم الكامل</label>
+                                    <input type="text" id="name" class="form-control" placeholder="أدخل اسمك الكامل" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="email">البريد الإلكتروني</label>
+                                    <input type="email" id="email" class="form-control" placeholder="أدخل بريدك الإلكتروني" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="subject">الموضوع</label>
+                                    <input type="text" id="subject" class="form-control" placeholder="موضوع الرسالة" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="message">الرسالة</label>
+                                    <textarea id="message" class="form-control" placeholder="اكتب رسالتك هنا..." required></textarea>
+                                </div>
+                                <button type="submit" class="btn">إرسال الرسالة</button>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="map-container">
+                        <div class="map-placeholder">
+                            <i class="fas fa-map-marked-alt"></i>
+                            <h3>خريطة الموقع</h3>
+                            <p>إربد، الأردن</p>
+                        </div>
+                    </div>
+                    <div style="text-align: center; margin-top: 20px;">
+                        <button class="btn" onclick="showPage('home')">العودة للرئيسية</button>
+                    </div>
+                </div>
+            </section>
+        </section>
+
+        <!-- صفحة تسجيل الدخول -->
+        <section id="auth-page" class="page" style="display: none;">
+            <div class="hero" style="background: linear-gradient(to right, #6a11cb, #2575fc);">
+                <div class="container">
+                    <h1><i class="fas fa-user-circle"></i> تسجيل الدخول / إنشاء حساب</h1>
+                    <p>انضم إلى مجتمع متعلم وابدأ رحلتك في تعلم البرمجة</p>
+                </div>
+            </div>
+            <section class="features">
+                <div class="container">
+                    <div class="auth-container">
+                        <div class="auth-card">
+                            <div class="auth-header">
+                                <h2>مرحباً بعودتك!</h2>
+                                <p>أدخل معلوماتك للوصول إلى حسابك</p>
+                            </div>
+                            <div class="auth-tabs">
+                                <div class="auth-tab active" id="login-tab" onclick="switchAuthTab('login')">تسجيل الدخول</div>
+                                <div class="auth-tab" id="register-tab" onclick="switchAuthTab('register')">إنشاء حساب</div>
+                            </div>
+                            <form id="login-form">
+                                <div class="input-group">
+                                    <i class="fas fa-envelope input-icon"></i>
+                                    <input type="email" id="login-email" placeholder=" " required>
+                                    <label for="login-email">البريد الإلكتروني</label>
+                                </div>
+                                <div class="input-group">
+                                    <i class="fas fa-lock input-icon"></i>
+                                    <input type="password" id="login-password" placeholder=" " required>
+                                    <label for="login-password">كلمة المرور</label>
+                                </div>
+                                <div class="remember-forgot">
+                                    <div class="remember">
+                                        <input type="checkbox" id="remember">
+                                        <label for="remember">تذكرني</label>
+                                    </div>
+                                    <a href="#" class="forgot-link">نسيت كلمة المرور?</a>
+                                </div>
+                                <button type="submit" class="auth-btn">تسجيل الدخول</button>
+                                <div class="auth-divider">
+                                    <span>أو</span>
+                                </div>
+                                <div class="social-auth">
+                                    <a href="#" class="social-btn"><i class="fab fa-google"></i></a>
+                                    <a href="#" class="social-btn"><i class="fab fa-facebook-f"></i></a>
+                                    <a href="#" class="social-btn"><i class="fab fa-twitter"></i></a>
+                                </div>
+                                <div class="auth-footer">
+                                    <p>ليس لديك حساب؟ <a href="#" onclick="switchAuthTab('register'); return false;">إنشاء حساب</a></p>
+                                </div>
+                            </form>
+                            <form id="register-form" style="display: none;">
+                                <div class="input-group">
+                                    <i class="fas fa-user input-icon"></i>
+                                    <input type="text" id="register-name" placeholder=" " required>
+                                    <label for="register-name">الاسم الكامل</label>
+                                </div>
+                                <div class="input-group">
+                                    <i class="fas fa-envelope input-icon"></i>
+                                    <input type="email" id="register-email" placeholder=" " required>
+                                    <label for="register-email">البريد الإلكتروني</label>
+                                </div>
+                                <div class="input-group">
+                                    <i class="fas fa-lock input-icon"></i>
+                                    <input type="password" id="register-password" placeholder=" " required>
+                                    <label for="register-password">كلمة المرور</label>
+                                </div>
+                                <div class="input-group">
+                                    <i class="fas fa-lock input-icon"></i>
+                                    <input type="password" id="register-confirm" placeholder=" " required>
+                                    <label for="register-confirm">تأكيد كلمة المرور</label>
+                                </div>
+                                <div class="remember">
+                                    <input type="checkbox" id="terms" required>
+                                    <label for="terms">أوافق على <a href="#">الشروط والأحكام</a> و <a href="#">سياسة الخصوصية</a></label>
+                                </div>
+                                <button type="submit" class="auth-btn">إنشاء حساب</button>
+                                <div class="auth-divider">
+                                    <span>أو</span>
+                                </div>
+                                <div class="auth-footer">
+                                    <p>هل لديك حساب؟ <a href="#" onclick="switchAuthTab('login'); return false;">تسجيل الدخول</a></p>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div style="text-align: center; margin-top: 20px;">
+                        <button class="btn" onclick="showPage('home')">العودة للرئيسية</button>
+                    </div>
+                </div>
+            </section>
+        </section>
+    </main>
+    <footer>
+        <div class="container">
+            <div class="logo">
+                <i class="fas fa-code"></i>
+                <span>متعلم</span>
+            </div>
+            <p>منصة تعليمية تهدف إلى تمكين العرب من تعلم البرمجة بطريقة عملية</p>
+            <ul class="footer-links">
+                <li><a href="#" onclick="showPage('about-me'); return false;">نبذة عني</a></li>
+                <li><a href="#">الشروط والأحكام</a></li>
+                <li><a href="#">سياسة الخصوصية</a></li>
+                <li><a href="#" onclick="showPage('contact'); return false;">اتصل بنا</a></li>
+            </ul>
+            <p>© 2025 متعلم. جميع الحقوق محفوظة</p>
+        </div>
+    </footer>
+    <div class="copy-notification" id="copy-notification">تم نسخ الكود بنجاح!</div>
+    <script>
+        // دالة لتشغيل الكود في المحرر
+        function runCode() {
+            const code = document.getElementById('code-input').value;
+            const output = document.getElementById('output');
+            try {
+                // حفظ console.log الأصلي
+                const originalConsoleLog = console.log;
+                let logs = [];
+                // تعديل console.log لالتقاط النتائج
+                console.log = function() {
+                    logs.push(Array.from(arguments).join(' '));
+                    originalConsoleLog.apply(console, arguments);
+                };
+                // تنظيف السجلات السابقة
+                logs = [];
+                // تنفيذ الكود
+                eval(code);
+                // عرض النتائج
+                output.innerHTML = logs.length > 0 
+                    ? logs.join('<br>') 
+                    : 'تم تنفيذ الكود بنجاح ولكن لا توجد نتائج معروضة. استخدم console.log() لعرض النتائج.';
+                // استعادة console.log الأصلي
+                console.log = originalConsoleLog;
+            } catch (error) {
+                output.innerHTML = `<span style="color: #ff6b6b">خطأ: ${error.message}</span>`;
+            }
+        }
+        // دالة لتشغيل كود Python في المحرر
+        function runPythonCode() {
+            const code = document.getElementById('python-code-input').value;
+            const output = document.getElementById('python-output');
+            try {
+                // في بيئة حقيقية، سيتم إرسال الكود إلى خادم لتشغيله
+                // لكن هنا سنقوم بمحاكاة بسيطة لتشغيل بعض الأوامر الأساسية
+                let result = "";
+                const lines = code.split('\n');
+                for (let i = 0; i < lines.length; i++) {
+                    const line = lines[i].trim();
+                    if (line.startsWith('print(') && line.endsWith(')')) {
+                        const content = line.substring(6, line.length - 1);
+                        // إزالة علامات الاقتباس إذا وجدت
+                        let outputText = content.replace(/^['"](.*)['"]$/, '$1');
+                        // معالجة f-strings بشكل مبسط
+                        outputText = outputText.replace(/\{([^}]+)\}/g, (match, p1) => {
+                            try {
+                                return eval(p1);
+                            } catch (e) {
+                                return match;
+                            }
+                        });
+                        result += outputText + '<br>';
+                    }
+                }
+                output.innerHTML = result || 'تم تنفيذ الكود بنجاح. استخدم print() لعرض النتائج.';
+            } catch (error) {
+                output.innerHTML = `<span style="color: #ff6b6b">خطأ: ${error.message}</span>`;
+            }
+        }
+        // دالة لإظهار الصفحة المحددة وإخفاء الأخرى
+        function showPage(pageId) {
+            // إخفاء جميع الصفحات
+            document.querySelectorAll('.page').forEach(page => {
+                page.style.display = 'none';
+            });
+            // إظهار الصفحة المحددة
+            document.getElementById(pageId).style.display = 'block';
+            // تحديث القائمة النشطة
+            document.querySelectorAll('.nav-links a').forEach(link => {
+                link.classList.remove('active');
+            });
+            // إضافة active للرابط المناسب
+            if (pageId === 'home') {
+                document.querySelector('.nav-links a[onclick="showPage(\'home\'); return false;"]').classList.add('active');
+            } else if (pageId === 'about-me') {
+                document.querySelector('.nav-links a[onclick="showPage(\'about-me\'); return false;"]').classList.add('active');
+            } else if (pageId === 'html-page') {
+                document.querySelector('.nav-links a[onclick="showPage(\'html-page\'); return false;"]').classList.add('active');
+            } else if (pageId === 'css-page') {
+                document.querySelector('.nav-links a[onclick="showPage(\'css-page\'); return false;"]').classList.add('active');
+            } else if (pageId === 'js-page') {
+                document.querySelector('.nav-links a[onclick="showPage(\'js-page\'); return false;"]').classList.add('active');
+            } else if (pageId === 'python-page') {
+                document.querySelector('.nav-links a[onclick="showPage(\'python-page\'); return false;"]').classList.add('active');
+            } else if (pageId === 'contact') {
+                document.querySelector('.nav-links a[onclick="showPage(\'contact\'); return false;"]').classList.add('active');
+            } else if (pageId === 'auth-page') {
+                // لا يوجد رابط لـ auth-page في القائمة
+            }
+            // حفظ الصفحة الحالية في localStorage
+            localStorage.setItem('currentPage', pageId);
+            // التمرير لأعلى الصفحة
+            window.scrollTo(0, 0);
+            // إغلاق قائمة الهاتف إذا كانت مفتوحة
+            if (document.querySelector('.nav-links').classList.contains('active')) {
+                toggleMenu();
+            }
+        }
+        // دالة لتبديل قائمة الهاتف
+        function toggleMenu() {
+            const navLinks = document.querySelector('.nav-links');
+            const hamburger = document.querySelector('.hamburger');
+            navLinks.classList.toggle('active');
+            hamburger.classList.toggle('active');
+        }
+        // دالة لنسخ الكود
+        function copyCode(textareaId) {
+            const textarea = document.getElementById(textareaId);
+            textarea.select();
+            document.execCommand('copy');
+            // إظهار إشعار النسخ
+            const notification = document.getElementById('copy-notification');
+            notification.style.display = 'block';
+            setTimeout(() => {
+                notification.style.display = 'none';
+            }, 2000);
+        }
+        // دالة لتحميل الأمثلة
+        function loadExample(type, exampleNum) {
+            const htmlExamples = [
+                `<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>صفحتي الأولى</title>
+</head>
+<body>
+    <h1>مرحباً بالعالم!</h1>
+    <p>هذه هي أول صفحة لي.</p>
+    <a href="https://www.example.com">زيارة مثال</a>
+    <h2>قائمة المهام</h2>
+    <ul>
+        <li>تعلم HTML</li>
+        <li>تعلم CSS</li>
+        <li>تعلم JavaScript</li>
+    </ul>
+</body>
+</html>`,
+                `<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>روابط وصور</title>
+</head>
+<body>
+    <!-- رابط خارجي -->
+    <a href="https://www.mozilla.org">زيارة موقع Mozilla</a>
+    <!-- رابط داخلي (لتخطي للقسم التالي) -->
+    <a href="#section2">انتقل للقسم 2</a>
+    <!-- إدراج صورة -->
+    <img src="image.jpg" alt="وصف الصورة">
+    <!-- صورة كرابط -->
+    <a href="https://example.com">
+        <img src="logo.png" alt="شعار الموقع">
+    </a>
+</body>
+</html>`,
+                `<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>الجداول</title>
+</head>
+<body>
+    <h2>جدول درجات الطلاب</h2>
+    <table border="1">
+        <caption>جدول درجات الطلاب</caption>
+        <thead>
+            <tr>
+                <th>اسم الطالب</th>
+                <th>الرياضيات</th>
+                <th>العلوم</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>أحمد</td>
+                <td>95</td>
+                <td>88</td>
+            </tr>
+            <tr>
+                <td>فاطمة</td>
+                <td>92</td>
+                <td>94</td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>`
+            ];
+            const cssExamples = [
+                `/* التنسيق العام */
+body {
+    font-family: 'Arial', sans-serif;
+    line-height: 1.6;
+    color: #333;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 20px;
+}
+/* تنسيق العناوين الرئيسية */
+h1 {
+    color: #0066cc;
+    text-align: center;
+    font-size: 2.5em;
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+}
+/* تنسيق الفقرات */
+p {
+    font-size: 1.1em;
+    margin-bottom: 1em;
+    text-align: justify;
+}`,
+                `.card {
+    width: 300px;
+    padding: 20px; /* المسافة الداخلية */
+    margin: 20px auto; /* المسافة الخارجية */
+    border: 2px solid #ddd; /* الإطار */
+    border-radius: 12px; /* زوايا دائرية */
+    background-color: #ffffff; /* لون الخلفية */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* ظل */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+/* تأثير عند تمرير الماوس */
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+/* تنسيق الزر داخل البطاقة */
+.card .button {
+    display: inline-block;
+    padding: 12px 24px;
+    background-color: #4CAF50;
+    color: white;
+    text-decoration: none;
+    border-radius: 6px;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+.card .button:hover {
+    background-color: #45a049;
+}`,
+                `.container {
+    display: flex;
+    justify-content: space-between; /* توزيع العناصر أفقياً */
+    align-items: stretch; /* تمديد العناصر رأسياً */
+    flex-wrap: wrap; /* السماح بالالتفاف إذا لم يكن هناك مساحة */
+    gap: 20px; /* المسافة بين العناصر */
+    padding: 20px;
+}
+/* تصميم كل عنصر داخل التخطيط */
+.item {
+    flex: 1 1 300px; /* يمكن التمدد والانكماش، الحد الأدنى للعرض 300px */
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    text-align: center;
+}
+/* استجابة للشاشات الصغيرة */
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column; /* تغيير الاتجاه إلى عمودي */
+        align-items: center; /* توسيط العناصر */
+    }
+    .item {
+        width: 100%; /* اجعل العناصر بعرض كامل */
+        max-width: 400px;
+    }
+}`
+            ];
+            const jsExamples = [
+                `// تعريف المتغيرات بأنواع مختلفة
+let name = "أحمد"; // نص
+const age = 25; // رقم (ثابت)
+let isStudent = true; // قيمة منطقية
+// العمليات الحسابية
+let x = 10;
+let y = 5;
+console.log("الجمع:", x + y); // 15
+console.log("الطرح:", x - y); // 5
+console.log("الضرب:", x * y); // 50
+console.log("القسمة:", x / y); // 2
+// العمليات المنطقية
+console.log("هل أكبر من؟", x > y); // true
+console.log("هل يساوي؟", x === 10); // true
+// دمج النصوص
+let greeting = "مرحباً " + name + "، عمرك " + age + " سنة.";
+console.log(greeting);`,
+                `// دالة لحساب متوسط درجات الطالب
+function calculateAverage(grades) {
+    let sum = 0;
+    for (let i = 0; i < grades.length; i++) {
+        sum += grades[i];
+    }
+    return sum / grades.length;
+}
+// دالة لتحديد حالة الطالب بناءً على المعدل
+function getStudentStatus(average) {
+    if (average >= 90) {
+        return "ممتاز";
+    } else if (average >= 80) {
+        return "جيد جداً";
+    } else if (average >= 70) {
+        return "جيد";
+    } else {
+        return "ضعيف";
+    }
+}
+// استخدام الدوال
+const studentGrades = [85, 92, 78, 96];
+const avg = calculateAverage(studentGrades);
+const status = getStudentStatus(avg);
+console.log("المعدل: " + avg.toFixed(2));
+console.log("الحالة: " + status);`,
+                `// تغيير نص عنصر عند النقر على زر
+document.getElementById("changeTextBtn").addEventListener("click", function() {
+    document.getElementById("targetText").textContent = "تم تغيير النص!";
+    document.getElementById("targetText").style.color = "blue";
+});
+// إضافة عنصر جديد إلى القائمة
+document.getElementById("addToListBtn").addEventListener("click", function() {
+    const newItem = document.createElement("li");
+    newItem.textContent = "عنصر جديد " + (document.querySelectorAll("#myList li").length + 1);
+    document.getElementById("myList").appendChild(newItem);
+});
+// تغيير لون الخلفية عند تمرير الماوس فوق عنصر
+document.getElementById("hoverBox").addEventListener("mouseenter", function() {
+    this.style.backgroundColor = "#ffcc00";
+});
+document.getElementById("hoverBox").addEventListener("mouseleave", function() {
+    this.style.backgroundColor = "#f0f0f0";
+});`
+            ];
+            const pythonExamples = [
+                `# تعريف متغيرات بأسماء معبرة
+student_name = "فاطمة"
+student_age = 22
+is_enrolled = True
+# العمليات الحسابية
+math_score = 85
+science_score = 92
+average_score = (math_score + science_score) / 2
+print(f"اسم الطالب: {student_name}")
+print(f"العمر: {student_age}")
+print(f"المعدل: {average_score:.2f}")
+# العمليات على النصوص
+greeting = "مرحباً " + student_name + "!"
+print(greeting.upper())  # تحويل النص إلى أحرف كبيرة
+print(f"عدد أحرف الاسم: {len(student_name)}")`,
+                `# التحقق من حالة الطالب باستخدام if-elif-else
+if average_score >= 90:
+    grade = "A"
+    status = "ممتاز"
+elif average_score >= 80:
+    grade = "B"
+    status = "جيد جداً"
+elif average_score >= 70:
+    grade = "C"
+    status = "جيد"
+else:
+    grade = "F"
+    status = "ضعيف"
+print(f"الدرجة: {grade} - {status}")
+# استخدام الحلقة for للمرور على قائمة
+fruits = ["تفاح", "موز", "برتقال", "فراولة"]
+print("قائمة الفواكه:")
+for index, fruit in enumerate(fruits, start=1):
+    print(f"{index}. {fruit}")
+# استخدام الحلقة while
+count = 5
+print("العد التنازلي:")
+while count > 0:
+    print(count)
+    count -= 1  # تقليل العداد بمقدار 1
+print("انطلق!")`,
+                `# العمل مع القوائم (Lists)
+shopping_list = ["خبز", "حليب", "بيض"]
+shopping_list.append("زبادي")  # إضافة عنصر
+shopping_list.remove("حليب")   # حذف عنصر
+print("قائمة التسوق:", shopping_list)
+print("عدد العناصر:", len(shopping_list))
+# العمل مع القواميس (Dictionaries)
+student = {
+    "name": "محمد",
+    "age": 20,
+    "major": "علوم الحاسوب",
+    "grades": {
+        "math": 88,
+        "physics": 91,
+        "chemistry": 85
+    }
+}
+print(f"اسم الطالب: {student['name']}")
+print(f"تخصصه: {student['major']}")
+print(f"درجة الرياضيات: {student['grades']['math']}")
+# حساب المعدل من القاموس
+grades_list = student['grades'].values()
+average = sum(grades_list) / len(grades_list)
+print(f"المعدل العام: {average:.2f}")`
+            ];
+            if (type === 'html') {
+                document.getElementById('html-code-input').value = htmlExamples[exampleNum - 1];
+                showPage('html-page');
+            } else if (type === 'css') {
+                document.getElementById('css-code-input').value = cssExamples[exampleNum - 1];
+                showPage('css-page');
+            } else if (type === 'js') {
+                document.getElementById('js-code-input').value = jsExamples[exampleNum - 1];
+                showPage('js-page');
+            } else if (type === 'python') {
+                document.getElementById('python-code-input').value = pythonExamples[exampleNum - 1];
+                showPage('python-page');
+            }
+        }
+        // دالة للتبديل بين تسجيل الدخول وإنشاء حساب
+        function switchAuthTab(tab) {
+            const loginTab = document.getElementById('login-tab');
+            const registerTab = document.getElementById('register-tab');
+            const loginForm = document.getElementById('login-form');
+            const registerForm = document.getElementById('register-form');
+            if (tab === 'login') {
+                loginTab.classList.add('active');
+                registerTab.classList.remove('active');
+                loginForm.style.display = 'block';
+                registerForm.style.display = 'none';
+            } else {
+                loginTab.classList.remove('active');
+                registerTab.classList.add('active');
+                loginForm.style.display = 'none';
+                registerForm.style.display = 'block';
+            }
+        }
+        // دالة لتبديل الوضع الليلي
+        function toggleDarkMode() {
+            document.body.classList.toggle('dark-mode');
+            const themeIcon = document.getElementById('theme-icon');
+            if (document.body.classList.contains('dark-mode')) {
+                themeIcon.classList.remove('fa-moon');
+                themeIcon.classList.add('fa-sun');
+                localStorage.setItem('theme', 'dark');
+            } else {
+                themeIcon.classList.remove('fa-sun');
+                themeIcon.classList.add('fa-moon');
+                localStorage.setItem('theme', 'light');
+            }
+        }
+        // استعادة الصفحة الأخيرة من localStorage
+        const savedPage = localStorage.getItem('currentPage');
+        if (savedPage) {
+            showPage(savedPage);
+        } else {
+            showPage('home');
+        }
+        // استعادة الوضع الليلي من localStorage
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'dark') {
+            document.body.classList.add('dark-mode');
+            document.getElementById('theme-icon').classList.remove('fa-moon');
+            document.getElementById('theme-icon').classList.add('fa-sun');
+        }
+        // إضافة مستمعي الأحداث للنماذج
+        document.getElementById('contact-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('شكراً لك على رسالتك! سنرد عليك في أقرب وقت.');
+            this.reset();
+        });
+        document.getElementById('login-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('تم تسجيل الدخول بنجاح!');
+            showPage('home');
+        });
+        document.getElementById('register-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('تم إنشاء حسابك بنجاح! يمكنك الآن البدء في التعلم.');
+            showPage('home');
+        });
+        // إضافة مستمع الحدث لزر الوضع الليلي
+        document.getElementById('theme-toggle').addEventListener('click', toggleDarkMode);
+        // دالة لتكبير وتصغير حجم الخط
+        let fontSizeMultiplier = 1; // المضاعف الافتراضي
+        const minMultiplier = 0.8;  // أصغر حجم
+        const maxMultiplier = 1.5;  // أكبر حجم
+        function toggleFontSize() {
+            const body = document.body;
+            // إذا كان الحجم عند الحد الأدنى أو الافتراضي، نقوم بالتكبير
+            if (fontSizeMultiplier <= 1) {
+                fontSizeMultiplier = 1.2;
+                body.style.fontSize = `${fontSizeMultiplier}rem`;
+            } 
+            // إذا كان الحجم مكبرًا، نقوم بالتصغير
+            else {
+                fontSizeMultiplier = 1;
+                body.style.fontSize = '1rem';
+            }
+        }
+    </script>
+</body>
+</html>
