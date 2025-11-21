@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مرحباً بك | عالم المعرفة</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Cairo', sans-serif;
+            background: linear-gradient(135deg, #0f0c29, #1a2a5e, #24243e);
+            min-height: 100vh;
+            color: #fff;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 25% 25%, rgba(66, 133, 244, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 75% 75%, rgba(70, 150, 255, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 50% 10%, rgba(100, 180, 255, 0.1) 0%, transparent 50%);
+            z-index: -2;
+            pointer-events: none;
+            animation: bgFloat 15s infinite alternate;
+        }
+
+        @keyframes bgFloat {
+            0% { transform: translateY(0) scale(1); }
+            100% { transform: translateY(-20px) scale(1.05); }
+        }
+
+        /* شاشة التحميل */
+        #splash {
+            position: fixed;
+            inset: 0;
+            background: linear-gradient(135deg, #0f0c29, #1a2a5e);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 1s ease-out;
+            opacity: 1;
+        }
+
+        .logo-loader {
+            font-size: 4rem;
+            font-weight: 900;
+            background: linear-gradient(to right, #4fc3f7, #64b5f6, #90caf9);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 30px rgba(100, 181, 246, 0.4);
+            letter-spacing: 3px;
+            margin-bottom: 20px;
+            animation: glow 2s infinite alternate;
+        }
+
+        @keyframes glow {
+            0% { text-shadow: 0 0 20px rgba(79, 195, 247, 0.5); }
+            100% { text-shadow: 0 0 40px rgba(144, 202, 249, 0.8), 0 0 60px rgba(100, 181, 246, 0.6); }
+        }
+
+        .loader {
+            width: 100px;
+            height: 100px;
+            position: relative;
+            animation: rotate 4s linear infinite;
+        }
+
+        .loader::before,
+        .loader::after {
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            border: 4px solid transparent;
+            border-top-color: #4fc3f7;
+            border-bottom-color: #64b5f6;
+            animation: spin 2s linear infinite;
+        }
+
+        .loader::after {
+            border-top-color: #90caf9;
+            border-bottom-color: #bbdefb;
+            animation: spin 3s linear infinite reverse;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .loading-text {
+            margin-top: 30px;
+            color: #e0e0e0;
+            font-size: 1.3rem;
+            letter-spacing: 3px;
+            font-weight: 300;
+            opacity: 0;
+            animation: fadeInText 1s 2.5s forwards;
+        }
+
+        @keyframes fadeInText {
+            to { opacity: 1; }
+        }
+
+        /* المحتوى الرئيسي */
+        .main-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            width: 90%;
+            padding: 70px 50px;
+            background: rgba(15, 12, 41, 0.4);
+            backdrop-filter: blur(20px);
+            border-radius: 30px;
+            box-shadow: 
+                0 25px 50px rgba(0, 0, 0, 0.5),
+                0 0 0 1px rgba(255, 255, 255, 0.1),
+                inset 0 0 0 1px rgba(255, 255, 255, 0.05);
+            transform: translateY(50px) scale(0.9);
+            opacity: 0;
+            animation: slideIn 1.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards 0.8s;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            margin-bottom: 60px;
+        }
+
+        @keyframes slideIn {
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .container::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.03), transparent);
+            pointer-events: none;
+            animation: shine 8s infinite linear;
+        }
+
+        @keyframes shine {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+        }
+
+        .text-logo {
+            width: 250px;
+            height: 250px;
+            margin: 30px auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #1976D2, #2196F3);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            border: 4px solid #ffffff;
+            animation: logoFloat 3s ease-out forwards;
+            opacity: 0;
+            transform: scale(0.5) translateY(50px);
+        }
+
+        .text-logo .logo-text {
+            font-size: 4rem;
+            font-weight: 900;
+            color: #ffffff;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            letter-spacing: 5px;
+        }
+
+        @keyframes logoFloat {
+            0% {
+                opacity: 0;
+                transform: scale(0.5) translateY(50px);
+            }
+            70% {
+                opacity: 1;
+                transform: scale(1.05) translateY(-10px);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            font-weight: 900;
+            margin: 40px 0 30px;
+            background: linear-gradient(135deg, #ffffff, #a8e6ff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 5px 15px rgba(255, 255, 255, 0.1);
+            position: relative;
+            line-height: 1.2;
+            letter-spacing: -1px;
+        }
+
+        p {
+            color: rgba(255, 255, 255, 0.85);
+            font-size: 1.4rem;
+            line-height: 2.1;
+            margin-bottom: 50px;
+            font-weight: 300;
+            letter-spacing: 0.8px;
+            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            position: relative;
+            z-index: 2;
+            padding: 0 20px;
+        }
+
+        .button-container {
+            position: relative;
+            display: inline-block;
+        }
+
+        .start-button {
+            background: linear-gradient(135deg, #0288d1, #0277bd);
+            color: white;
+            border: none;
+            padding: 25px 70px;
+            font-size: 1.4rem;
+            font-weight: 700;
+            border-radius: 60px;
+            cursor: pointer;
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 
+                0 15px 35px rgba(2, 136, 209, 0.4),
+                0 0 0 1px rgba(255, 255, 255, 0.1),
+                inset 0 -5px 10px rgba(0, 0, 0, 0.2);
+            letter-spacing: 2px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .start-button:hover {
+            transform: translateY(-8px) scale(1.08);
+            box-shadow: 
+                0 25px 50px rgba(2, 136, 209, 0.6),
+                0 0 0 1px rgba(255, 255, 255, 0.2),
+                inset 0 -2px 5px rgba(0, 0, 0, 0.1);
+            background: linear-gradient(135deg, #039be5, #03a9f4);
+        }
+
+        .start-button:active {
+            transform: translateY(3px) scale(0.98);
+            box-shadow: 
+                0 5px 15px rgba(2, 136, 209, 0.4),
+                inset 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .start-button i {
+            margin-right: 12px;
+            transition: transform 0.4s ease, margin 0.4s ease;
+            display: inline-block;
+        }
+
+        .start-button:hover i {
+            transform: translateX(-8px);
+            margin-right: 20px;
+        }
+
+        /* قسم لغات البرمجة الجديد */
+        .programming-section {
+            max-width: 1400px;
+            width: 90%;
+            margin: 60px auto;
+            opacity: 0;
+            animation: fadeInUp 1.5s ease forwards 1.5s;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .programming-section {
+            transform: translateY(30px);
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-header h2 {
+            font-size: 3rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #ffffff, #64b5f6);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 15px;
+        }
+
+        .section-header p {
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .category-card {
+            background: rgba(15, 12, 41, 0.5);
+            backdrop-filter: blur(15px);
+            border-radius: 20px;
+            padding: 35px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+            animation: cardAppear 0.8s ease forwards;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .category-card:nth-child(1) { animation-delay: 1.7s; }
+        .category-card:nth-child(2) { animation-delay: 1.9s; }
+        .category-card:nth-child(3) { animation-delay: 2.1s; }
+        .category-card:nth-child(4) { animation-delay: 2.3s; }
+
+        @keyframes cardAppear {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .category-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--category-color), transparent);
+            transform: scaleX(0);
+            transition: transform 0.4s ease;
+        }
+
+        .category-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .category-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+            border-color: var(--category-color);
+        }
+
+        .category-card.web-dev {
+            --category-color: #ff6b6b;
+        }
+
+        .category-card.app-dev {
+            --category-color: #4ecdc4;
+        }
+
+        .category-card.data-ai {
+            --category-color: #95e1d3;
+        }
+
+        .category-card.systems {
+            --category-color: #f3a683;
+        }
+
+        .category-icon {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            color: var(--category-color);
+            transition: all 0.4s ease;
+        }
+
+        .category-card:hover .category-icon {
+            transform: scale(1.2) rotate(5deg);
+        }
+
+        .category-card h3 {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            color: #ffffff;
+            font-weight: 700;
+        }
+
+        .category-card p {
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 25px;
+            line-height: 1.6;
+            padding: 0;
+        }
+
+        .languages-list {
+            list-style: none;
+            margin-bottom: 25px;
+        }
+
+        .languages-list li {
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.85);
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+
+        .languages-list li:hover {
+            padding-right: 10px;
+            color: var(--category-color);
+        }
+
+        .languages-list li::before {
+            content: "▹";
+            margin-left: 10px;
+            color: var(--category-color);
+            font-weight: bold;
+            transition: transform 0.3s ease;
+        }
+
+        .languages-list li:hover::before {
+            transform: translateX(-5px);
+        }
+
+        .start-guide {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+
+        .start-guide h4 {
+            font-size: 1.2rem;
+            color: var(--category-color);
+            margin-bottom: 12px;
+            font-weight: 600;
+        }
+
+        .start-guide ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .start-guide li {
+            padding: 8px 0;
+            color: rgba(255, 255, 255, 0.75);
+            font-size: 0.95rem;
+            display: flex;
+            align-items: flex-start;
+        }
+
+        .start-guide li::before {
+            content: "✓";
+            margin-left: 10px;
+            color: var(--category-color);
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+
+        /* عناصر زخرفية */
+        .floating-shapes, .particles {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .shape {
+            position: absolute;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.1), transparent);
+            backdrop-filter: blur(5px);
+            animation: float 15s infinite ease-in-out;
+        }
+
+        .shape:nth-child(1) { width: 300px; height: 300px; top: -100px; right: -100px; animation-delay: 0s; background: radial-gradient(circle, rgba(79, 195, 247, 0.15), transparent); }
+        .shape:nth-child(2) { width: 200px; height: 200px; bottom: -80px; left: -80px; animation-delay: -5s; background: radial-gradient(circle, rgba(100, 181, 246, 0.15), transparent); }
+        .shape:nth-child(3) { width: 120px; height: 120px; top: 60%; left: 15%; animation-delay: -10s; background: radial-gradient(circle, rgba(144, 202, 249, 0.15), transparent); }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-30px) rotate(10deg); }
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.6);
+            border-radius: 50%;
+            animation: twinkle 4s infinite;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.2; transform: scale(0.8); }
+            50% { opacity: 1; transform: scale(1.2); }
+        }
+
+        /* جوال */
+        @media (max-width: 768px) {
+            .text-logo { width: 180px; height: 180px; }
+            .text-logo .logo-text { font-size: 3rem; }
+            h1 { font-size: 2.8rem; }
+            p { font-size: 1.2rem; padding: 0 10px; }
+            .container { padding: 40px 25px; margin: 20px; }
+            .start-button { padding: 20px 40px; font-size: 1.2rem; }
+            .logo-loader { font-size: 2.8rem; }
+            .loader { width: 70px; height: 70px; }
+            .section-header h2 { font-size: 2.2rem; }
+            .categories-grid { grid-template-columns: 1fr; gap: 20px; }
+            .category-card { padding: 25px; }
+            .category-icon { font-size: 2.8rem; }
+        }
+
+        @media (max-width: 480px) {
+            .text-logo { width: 150px; height: 150px; }
+            .text-logo .logo-text { font-size: 2.5rem; }
+            h1 { font-size: 2.3rem; }
+            p { font-size: 1.1rem; }
+            .start-button { padding: 18px 35px; font-size: 1.1rem; }
+            .section-header h2 { font-size: 1.8rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- شاشة التحميل -->
+    <div id="splash">
+        <div class="logo-loader">مـتـعـلـم</div>
+        <div class="loader"></div>
+        <div class="loading-text">جاري التحضير لرحلتك التعليمية...</div>
+    </div>
+
+    <div class="floating-shapes">
+        <div class="shape"></div>
+        <div class="shape"></div>
+        <div class="shape"></div>
+    </div>
+
+    <div class="particles" id="particles"></div>
+
+    <div class="main-wrapper">
+        <div class="container">
+            <!-- شعار نصي واضح ومرئي بالكامل -->
+            <div class="text-logo">
+                <div class="logo-text">YN</div>
+            </div>
+
+            <h1>مرحباً بك في عالم المعرفة</h1>
+            <p>
+                <strong>مرحباً بك في عالم المعرفة، حيث تُبنى العقول وتُصنع المعجزات.</strong><br>
+                هنا، لا تقتصر الرحلة على حفظ المعلومات، بل تتعداها إلى فهم الأعماق، واستكشاف الأفق، وبناء مستقبلٍ يليق بطموحك.<br>
+                صممنا لك تجربة تعليمية فريدة — تجمع بين جمال التصميم، وسلاسة الأداء، وعمق المحتوى — لتكون رحلتك معنا ممتعة، مشوقة، ولا تُنسى.<br>
+                استعد… فكل صفحة تقلبها هنا، هي خطوة نحو عالم أوسع… وعقلٍ أذكى… وغدا أفضل.
+            </p>
+<button class="start-button" onclick="startJourney()">
+    <i class="fas fa-rocket"></i> ابدأ الرحلة
+</button>
+                </button>
+            </div>
+        </div>
+
+        <!-- قسم لغات البرمجة -->
+        <div class="programming-section">
+            <div class="section-header">
+                <h2>اكتشف عالم البرمجة</h2>
+                <p>اختر المسار المناسب لك وابدأ رحلتك في عالم التقنية</p>
+            </div>
+
+            <div class="categories-grid">
+                <!-- تطوير الويب -->
+                <div class="category-card web-dev">
+                    <div class="category-icon">
+                        <i class="fas fa-globe"></i>
+                    </div>
+                    <h3>تطوير الويب</h3>
+                    <p>ابنِ مواقع وتطبيقات ويب تفاعلية وجذابة</p>
+                    <ul class="languages-list">
+                        <li>HTML & CSS - أساس بناء الصفحات</li>
+                        <li>JavaScript - لغة التفاعل والحركة</li>
+                        <li>React / Vue - أطر العمل الحديثة</li>
+                        <li>Node.js - برمجة الخوادم</li>
+                    </ul>
+                    <div class="start-guide">
+                        <h4>دليل البدء السريع:</h4>
+                        <ul>
+                            <li>ابدأ بتعلم HTML و CSS لبناء الصفحات</li>
+                            <li>انتقل إلى JavaScript لإضافة التفاعل</li>
+                            <li>تعلم إطار عمل حديث مثل React</li>
+                            <li>طور مشاريع حقيقية لبناء معرض أعمالك</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- تطوير التطبيقات -->
+                <div class="category-card app-dev">
+                    <div class="category-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <h3>تطوير التطبيقات</h3>
+                    <p>أنشئ تطبيقات جوال وسطح مكتب احترافية</p>
+                    <ul class="languages-list">
+                        <li>Kotlin / Swift - تطبيقات أصلية</li>
+                        <li>React Native - تطبيقات متعددة المنصات</li>
+                        <li>Flutter - واجهات جميلة وسريعة</li>
+                        <li>Java / C# - تطبيقات سطح المكتب</li>
+                    </ul>
+                    <div class="start-guide">
+                        <h4>دليل البدء السريع:</h4>
+                        <ul>
+                            <li>حدد المنصة المستهدفة (iOS, Android, أو كلاهما)</li>
+                            <li>تعلم أساسيات البرمجة الكائنية</li>
+                            <li>اختر إطار عمل مناسب (Flutter أو React Native)</li>
+                            <li>ابنِ تطبيقك الأول ونشره على المتاجر</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- علم البيانات والذكاء الاصطناعي -->
+                <div class="category-card data-ai">
+                    <div class="category-icon">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <h3>علم البيانات والذكاء الاصطناعي</h3>
+                    <p>حلل البيانات وابنِ نماذج ذكية متطورة</p>
+                    <ul class="languages-list">
+                        <li>Python - اللغة الأساسية للبيانات</li>
+                        <li>R - التحليل الإحصائي المتقدم</li>
+                        <li>TensorFlow / PyTorch - التعلم العميق</li>
+                        <li>SQL - إدارة قواعد البيانات</li>
+                    </ul>
+                    <div class="start-guide">
+                        <h4>دليل البدء السريع:</h4>
+                        <ul>
+                            <li>تعلم أساسيات Python والرياضيات</li>
+                            <li>ادرس الإحصاء وتحليل البيانات</li>
+                            <li>تعلم مكتبات Pandas و NumPy</li>
+                            <li>انتقل إلى التعلم الآلي والشبكات العصبية</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- الأنظمة والأمن -->
+                <div class="category-card systems">
+                    <div class="category-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>الأنظمة والأمن السيبراني</h3>
+                    <p>طور أنظمة قوية وآمنة ومستقرة</p>
+                    <ul class="languages-list">
+                        <li>C / C++ - برمجة الأنظمة</li>
+                        <li>Rust - الأمان والأداء العالي</li>
+                        <li>Go - خوادم سريعة وموثوقة</li>
+                        <li>Assembly - البرمجة منخفضة المستوى</li>
+                    </ul>
+                    <div class="start-guide">
+                        <h4>دليل البدء السريع:</h4>
+                        <ul>
+                            <li>ابدأ بتعلم C وأساسيات نظم التشغيل</li>
+                            <li>افهم بنية الحاسوب والذاكرة</li>
+                            <li>تعلم الشبكات والبروتوكولات الأمنية</li>
+                            <li>مارس الأمن السيبراني والاختبارات الأمنية</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // إنشاء الجسيمات
+        document.addEventListener('DOMContentLoaded', function() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 80;
+
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                particle.style.left = `${Math.random() * 100}%`;
+                particle.style.top = `${Math.random() * 100}%`;
+                const size = Math.random() * 4 + 2;
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                const duration = Math.random() * 3 + 2;
+                const delay = Math.random() * 5;
+                particle.style.animation = `twinkle ${duration}s infinite ${delay}s`;
+                particlesContainer.appendChild(particle);
+            }
+
+            // تأثير كتابة العنوان
+            const title = "مرحباً بك في عالم المعرفة";
+            const h1 = document.querySelector('h1');
+            h1.textContent = '';
+            let charIndex = 0;
+            const typing = setInterval(() => {
+                if (charIndex < title.length) {
+                    h1.textContent += title.charAt(charIndex);
+                    charIndex++;
+                } else {
+                    clearInterval(typing);
+                    setTimeout(() => {
+                        h1.style.textShadow = "0 0 30px rgba(255,255,255,0.5)";
+                        setTimeout(() => h1.style.textShadow = "", 500);
+                    }, 300);
+                }
+            }, 80);
+        });
+
+        // عند تحميل الصفحة
+        window.addEventListener('load', function() {
+            setTimeout(() => {
+                const splash = document.getElementById('splash');
+                splash.style.opacity = '0';
+                setTimeout(() => {
+                    splash.style.display = 'none';
+
+                    // تفعيل العناصر الطافية
+                    document.querySelectorAll('.shape').forEach((el, i) => {
+                        el.style.animation = `float 15s infinite ease-in-out ${i * 2}s`;
+                    });
+                }, 1000);
+            }, 2500);
+        });
+
+        // بدء الرحلة
+        function startJourney() {
+            document.querySelector('.container').style.animation = "slideIn 1s reverse forwards";
+            document.querySelector('.text-logo').style.animation = "logoFloat 1s reverse forwards";
+            document.querySelector('.programming-section').style.animation = "fadeInUp 1s reverse forwards";
+            
+            setTimeout(() => {
+              window.location.href = 'متعلم_نهائي.html';
+            }, 1000);
+        }
+    </script>
+</body>
+</html>
